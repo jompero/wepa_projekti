@@ -7,8 +7,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "repositories")
-@EntityScan(basePackages = "entities")
 public class DevelopmentSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
