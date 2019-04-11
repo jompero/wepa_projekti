@@ -1,4 +1,7 @@
 deploy:
   provider: heroku
   api_key:
-    secure: $HEROKU_AUTH_TOKEN
+    secure: uF3UqxJm/1z/64rnk5iIGCCkebZPCh98+Jv2mAialPU/wxuFefhat8dSvkBwgWJoT+aT/RE6g+30UGxn3Sbu3hXkjdVkrborO64Y8GKCB353mg4dc3hNwFUP9ZBT5eoYm9ulJGJn7p4+gSOUJfbfP4Ta2cbVbVNfjNrB7dmwH1KIDVQ/2uK1mboQC+Jg+PxYH/OculiLnfZjIc8wZKxH29SStVl1SU7tqyoYficuGSCMsDvo+Zy/28eZ7LS6upR1AMZ8WpASciMsefLcXGPcUSE+1FiwRmy2AfAUDg/6SwEzLeQ6rabBTYC6j/PsdDOTdDjdjp2tH8MncYFNjB5zSkZt/hsKCZC+ofaQ4MzLEtv1D5/yYEL0XOJgwHe5sa5BZ8ZnNvtuXz6pJJueyg9BRQcG97kd+fOgonBevtyi1QYMW04+GU4S9f28QkPSFWImgwViNCeXV4IU2+1YltDwao0kPPWnv2Rdwid3XpiyxH/Zi/zOTDqSUelpCTzK54/lYL5uDl9FVGN+upUse/BgU4nB8iFiYbldnwJrvSMVVhjsVNg49fhVyb2ol379OKdL3QWhYS1+NMo5rgyFeR/1JljhPLT5PuzgyQZoGugV2V/0P63nkYKHZmf/Bzc8cpAJQ+eZ5RizlI9M0e///3voCMOobEJUS/vGkQmQX9ZM9KM=
+  app: guarded-basin-25172
+  on:
+    repo: jompero/wepa_projekti
