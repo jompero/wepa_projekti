@@ -1,15 +1,20 @@
 package projekti;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import projekti.repositories.AccountRepository;
 
 @Controller
 public class DefaultController {
-
-    @GetMapping("*")
-    public String helloWorld(Model model) {
-        model.addAttribute("message", "World!");
+    
+    @Autowired
+    AccountRepository accountRepository;
+    
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("users", accountRepository.findAll());
         return "index";
     }
 }

@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div th:replace="fragments/layout :: head"></div>
+    <body>
+		<h1>Profile settings</h1>
+		<form action="/user" method="post">
+			<span class="formLabel">First name:</span><input type="text" name="firstName"><br>
+			<span class="formLabel">Last name:</span><input type="text" name="lastName"><br>
+			<input type="submit" value="Save">
+		</form>
+
+    </body>
+</html>
