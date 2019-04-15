@@ -23,6 +23,7 @@ public class AccountService {
     }
 
     void createAccount(Account account) {
+        account.setPassword(sec.passwordEncoder().encode(account.getPassword())); // Password is passed as plain text in form but needs to be encoded
         accounts.save(account);
     }
 }

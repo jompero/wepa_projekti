@@ -1,15 +1,13 @@
 package projekti.entities;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+
+import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.AbstractPersistable;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Entity
 @Data

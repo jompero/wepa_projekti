@@ -13,7 +13,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @AllArgsConstructor
 public class Profile extends AbstractPersistable<Long> {
     
-    String displayeName;
+    String displayName;
     String firstName;
     String lastName;
     
