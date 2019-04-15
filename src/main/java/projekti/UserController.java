@@ -1,9 +1,12 @@
 package projekti;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import projekti.entities.Account;
@@ -16,15 +19,24 @@ public class UserController {
     
     @GetMapping("/user")
     public String user(Model model) {
-        Account user = accounts.getUser();
+        Account user = accounts.getAccount();
         model.addAttribute(user);
         return "user";
     }
     
-    @PostMapping("/registration")
-    public String register(@RequestParam String username, @RequestParam String password) {
-        
-        accounts.createUser(username, password);
+    @GetMapping("/signup")
+    public String getSignUp(@ModelAttribute Account account, Model model) {
+        model.addAttribute("title", "Sign Up");
+        model.addAttribute("profilename", "USERNAME_HERE");
+        return "signup";
+    }
+    
+    @PostMapping("/signup")
+    public String postSignUpForm(@Valid @ModelAttribute Account account, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "signup";
+        }
+        accounts.createAccount(account);
         
         return "redirect:/user";
     }

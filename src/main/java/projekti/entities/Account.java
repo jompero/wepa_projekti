@@ -3,6 +3,8 @@ package projekti.entities;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,13 +17,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 @AllArgsConstructor
 public class Account extends AbstractPersistable<Long> {
     
+    //@NotEmpty
+    //@Size(min = 4, max = 18)
     private String username;
-    private String password;
-    private SimpleGrantedAuthority authority;
     
-    public Account(String username, String password) {
-        this.username = username;
-        this.password = password;
-        authority = new SimpleGrantedAuthority("USER");
-    }
+    //@NotEmpty
+    //@Size(min = 4, max = 18)
+    private String password;
+    
+    private SimpleGrantedAuthority authority = new SimpleGrantedAuthority("USER");
 }

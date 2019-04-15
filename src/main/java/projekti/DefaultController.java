@@ -15,6 +15,8 @@ public class DefaultController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("users", accountRepository.findAll());
+        model.addAttribute("profilename", "USERNAME_HERE");
+        model.addAttribute("title", "Mockbook");
         return "index";
     }
 }

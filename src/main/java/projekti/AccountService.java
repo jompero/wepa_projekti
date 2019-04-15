@@ -15,18 +15,14 @@ public class AccountService {
     @Autowired
     private DevelopmentSecurityConfiguration sec;
     
-    public void createUser(String username, String password) {
-        if (accounts.findByUsername(username) != null) {
-            return;
-        }
-        Account account = new Account(username, sec.passwordEncoder().encode(password));
-        accounts.save(account);
-    }
-
-    public Account getUser() {
+    public Account getAccount() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Account account = accounts.findByUsername(username);
         return account;
+    }
+
+    void createAccount(Account account) {
+        accounts.save(account);
     }
 }

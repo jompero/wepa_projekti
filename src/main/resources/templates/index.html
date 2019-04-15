@@ -1,17 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <div th:replace="fragments/layout :: head"></div>
+    <div th:replace="fragments/layout :: head(${title})"></div>
     <body>
-
-        <h1>Hello world</h1>
-		<ul th:each="user : ${users}">
-			<li th:text="${user.username}"></li>
-		</ul>
-		<form action="/registration" method="post">
-			<span class="formLabel">Username:</span><input type="text" name="username"><br>
-			<span class="formLabel">Password:</span><input type="text" name="password"><br>
-			<input type="submit" value="Register">
-		</form>
-
+		<div th:replace="fragments/layout :: navbar"></div>		
+		<div class="container">
+			<div class="col-sm-3">
+				<h1>User list</h1>
+				<ul th:each="user : ${users}">
+					<li th:text="${user.username}"></li>
+				</ul>
+			</div>
+		</div>
     </body>
 </html>
