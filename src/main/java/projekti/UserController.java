@@ -25,14 +25,14 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping("/logiin")
+    @GetMapping("/login")
     public String getLogin(@ModelAttribute Account account, Model model) {
         model.addAttribute("title", "Log In");
         model.addAttribute("profilename", "USERNAME_HERE");
         return "login";
     }
-
-    @PostMapping("/logiin")
+/*
+    @PostMapping("/login")
     public String postLogin(@ModelAttribute Account account, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return "login";
@@ -40,7 +40,7 @@ public class UserController {
         
         return "login";
     }
-    
+*/
     @GetMapping("/signup")
     public String getSignUp(@ModelAttribute Account account, Model model) {
         model.addAttribute("title", "Sign Up");

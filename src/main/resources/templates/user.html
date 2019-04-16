@@ -5,7 +5,7 @@
 		<div th:replace="fragments/layout :: navbar"></div>
 		<div class="container"></br>
 			<h1>Profile settings</h1></br>
-			<form class="form-group" th:action="@{/settings}" th:object="${account}" method="POST">
+			<form class="form-group" th:action="@{/settings}" th:object="${profile}" method="POST">
 				<span class="formLabel">Profile name:</span><input class="form-control"  type="text" name="firstName" aria-describedby="profileNameHelp">
 				<small id="profileNameHelp" class="form-text text-muted">This will be displayed as "https://guarded-basin-25172.herokuapp.com/{profile name}".</small></br>
 				<span class="formLabel">First name:</span><input class="form-control"  type="text" name="firstName"></br>

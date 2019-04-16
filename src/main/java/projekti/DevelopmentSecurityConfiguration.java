@@ -22,6 +22,10 @@ public class DevelopmentSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .anyRequest().authenticated();
         http.formLogin()
                 .loginPage("/login")
+                .defaultSuccessUrl("/user")
+                .failureUrl("/login?error=true")
+                .permitAll();
+        http.logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout=true")
                 .permitAll();
     }
     

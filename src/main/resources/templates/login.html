@@ -1,16 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <div th:replace="fragments/layout :: head(${title})"></div>
+    <div th:replace="fragments/layout :: head('Log In')"></div>
     <body>
 		<div th:replace="fragments/layout :: navbar"></div>
 		<div class="container">
 			<div class="col-lg-6"></br>
 				<h1>Log In</h1></br>
-				<div th:if="${param.error}" class="alert alert-error">    
-					Invalid username and password.
+				<div th:if="${param.error}" class="text-danger">    
+					<div>Invalid username and password.</div></br>
 				</div>
-				<div th:if="${param.logout}" class="alert alert-success"> 
-						You have been logged out.
+				<div th:if="${param.logout}" class="text-success">
+					<div>You have been logged out.</div></br>
 				</div>
 				<form class="form-group" th:action="@{/login}" th:object="${account}" method="POST">
 					<div class="formLabel">Username:</div>
