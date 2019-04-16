@@ -1,9 +1,11 @@
-package projekti;
+package projekti.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import projekti.DevelopmentSecurityConfiguration;
 import projekti.entities.Account;
 import projekti.repositories.AccountRepository;
 
@@ -15,14 +17,14 @@ public class AccountService {
     @Autowired
     private DevelopmentSecurityConfiguration sec;
     
-    public Account getAccount() {
+    public Account getActiveAccount() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Account account = accounts.findByUsername(username);
         return account;
     }
 
-    void createAccount(Account account) {
+    public void createAccount(Account account) {
         account.setPassword(sec.passwordEncoder().encode(account.getPassword())); // Password is passed as plain text in form but needs to be encoded
         accounts.save(account);
     }

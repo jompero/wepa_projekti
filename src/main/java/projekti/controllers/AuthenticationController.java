@@ -1,4 +1,4 @@
-package projekti;
+package projekti.controllers;
 
 import javax.validation.Valid;
 
@@ -11,19 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import projekti.entities.Account;
+import projekti.services.AccountService;
 
 @Controller
-public class UserController {
+public class AuthenticationController {
     
     @Autowired
     private AccountService accounts;
-    
-    @GetMapping("/user")
-    public String user(Model model) {
-        Account user = accounts.getAccount();
-        model.addAttribute(user);
-        return "user";
-    }
 
     @GetMapping("/login")
     public String getLogin(@ModelAttribute Account account, Model model) {
@@ -31,16 +25,7 @@ public class UserController {
         model.addAttribute("profilename", "USERNAME_HERE");
         return "login";
     }
-/*
-    @PostMapping("/login")
-    public String postLogin(@ModelAttribute Account account, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            return "login";
-        }
-        
-        return "login";
-    }
-*/
+
     @GetMapping("/signup")
     public String getSignUp(@ModelAttribute Account account, Model model) {
         model.addAttribute("title", "Sign Up");
@@ -55,6 +40,6 @@ public class UserController {
         }
         accounts.createAccount(account);
         
-        return "redirect:/user";
+        return "redirect:/profile";
     }
 }

@@ -1,4 +1,4 @@
-package projekti;
+package projekti.services;
 
 import projekti.entities.Account;
 import java.util.Arrays;

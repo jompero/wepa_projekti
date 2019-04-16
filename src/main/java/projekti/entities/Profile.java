@@ -1,11 +1,14 @@
 package projekti.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
 @Data
@@ -13,11 +16,15 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @AllArgsConstructor
 public class Profile extends AbstractPersistable<Long> {
     
-    String displayName;
+    @Column(unique=true)
+    String profileName;
+
     String firstName;
     String lastName;
     
     @OneToOne
     Photo profileImage;
     
+    @OneToOne
+    Account account; // Profile owner
 }

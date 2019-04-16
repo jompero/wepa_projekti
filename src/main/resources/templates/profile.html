@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div th:replace="fragments/layout :: head(${title})"></div>
+    <body>
+		<div th:replace="fragments/layout :: navbar"></div>		
+		<div class="container">
+			<div class="col-sm-3">
+				<h1 th:text="${profile.profileName}">Profile Name</h1>
+                <h2 th:text="${profile.firstName + ' ' + profile.lastName}"></h2>
+                <!-- inser profile photo -->
+			</div>
+		</div>
+    </body>
+</html>
