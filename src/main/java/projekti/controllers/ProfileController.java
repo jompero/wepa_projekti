@@ -20,7 +20,7 @@ public class ProfileController {
     
     @GetMapping("/profile")
     public String redirectProfile() {
-        Profile profile = profiles.getProfile(accounts.getActiveAccount());
+        Profile profile = profiles.getActiveProfile();
         if (profile == null) {
             return "redirect:/settings";
         }

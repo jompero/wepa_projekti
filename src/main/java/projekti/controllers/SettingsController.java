@@ -18,12 +18,17 @@ import projekti.services.ProfileService;
 public class SettingsController {
 
     @Autowired
-    private AccountService accounts;
+    private AccountService account;
     @Autowired
     private ProfileService profiles;
 
     @GetMapping("/settings")
     public String getSettings(@ModelAttribute Profile profile, Model model) {
+        Profile activeProfile = account.getProfile();
+        if (activeProfile != null) {
+            model.addAttribute("profile", activeProfile);
+        }
+        
         return "settings";
     }
     
@@ -32,9 +37,16 @@ public class SettingsController {
         if(bindingResult.hasErrors()) {
             return "settings";
         }
-        accounts.setProfile(profile);
-        profiles.saveProfile(profile);
-        
+
+        String newProfileName = profile.getProfileName();
+        if (!profiles.isUniqueProfileName(newProfileName)) {
+            bindingResult.rejectValue("profileName", "error.profile", "Profile name taken.");
+            return "settings";
+        }
+
+        account.setProfile(profile);
+        Profile update = profiles.saveProfile(profile);
+
         return "redirect:/profile";
     }
 }

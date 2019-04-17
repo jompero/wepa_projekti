@@ -6,12 +6,21 @@
 		<div class="container"></br>
 			<h1>Profile settings</h1></br>
 			<form class="form-group" th:action="@{/settings}" th:object="${profile}" method="POST">
-				<span class="formLabel">Profile name:</span><input class="form-control"  type="text" name="profileName" aria-describedby="profileNameHelp">
-				<small id="profileNameHelp" class="form-text text-muted">This will be displayed as "https://guarded-basin-25172.herokuapp.com/{profile name}".</small>
+				<!-- Profile id -->
+				<input type="hidden" th:field="*{id}"/>
+				<!-- Profile name -->
+				<span class="formLabel">Profile name:</span>
+				<input class="form-control"  type="text" aria-describedby="profileNameHelp" name="profileName" th:field="*{profileName}">
+				<small id="profileNameHelp" class="form-text text-muted">Can be changed later.</small>
 				<div th:if="${#fields.hasErrors('profileName')}" th:errors="*{profileName}" class="text-danger"></div></br>
-				<span class="formLabel">First name:</span><input class="form-control"  type="text" name="firstName"></br>
-				<span class="formLabel">Last name:</span><input class="form-control"  type="text" name="lastName"></br>
+				<!-- First name -->
+				<span class="formLabel">First name:</span><input class="form-control"  type="text" name="firstName" th:field="*{firstName}"></br>
+				<!-- Last name -->
+				<span class="formLabel">Last name:</span><input class="form-control"  type="text" name="lastName" th:field="*{lastName}"></br>
+				<!-- Submit -->
 				<input class="btn btn-primary" type="submit" value="Save">
+				<!-- Profile image -->
+				<!-- <input type="hidden" th:field="*{profileImage}"/> -->
 			</form>
 		</div>
     </body>

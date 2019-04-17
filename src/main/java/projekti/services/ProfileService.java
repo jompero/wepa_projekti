@@ -15,17 +15,35 @@ public class ProfileService {
     @Autowired
     private AccountService accounts;
     
-    public Profile getProfile(Account account) {
-        Profile profile = accounts.getProfile();
-        return profile;
-    }
-
     public Profile getProfile(String profileName) {
         Profile profile = profiles.findByProfileName(profileName);
         return profile;
     }
 
-    public void saveProfile(Profile profile) {
-        profiles.save(profile);
+    public Profile getActiveProfile() {
+        return accounts.getActiveAccount().getProfile();
+    }
+
+    public Profile saveProfile(Profile profile) {
+        Profile oldProfile = getActiveProfile();
+        if (oldProfile != null) {
+            oldProfile.setProfileName(profile.getProfileName());
+            oldProfile.setFirstName(profile.getFirstName());
+            oldProfile.setLastName(profile.getLastName());
+            oldProfile.setProfileImage(profile.getProfileImage());
+            return profiles.save(oldProfile);
+        }
+        return profiles.save(profile);
+    }
+
+    public boolean isUniqueProfileName(String profileName) {
+        Profile profile = profiles.findByProfileName(profileName);
+        Profile activeProfile = getActiveProfile();
+        if (profile != null) {
+            if (activeProfile != null && activeProfile.getId() != profile.getId()) {
+                return false;
+            }
+        }
+        return true;
     }
 }
