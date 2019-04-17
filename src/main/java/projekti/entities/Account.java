@@ -1,6 +1,7 @@
 package projekti.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -23,6 +24,9 @@ public class Account extends AbstractPersistable<Long> {
     
     @NotEmpty
     private String password;
+
+    @OneToOne
+    Profile profile;
     
     private SimpleGrantedAuthority authority = new SimpleGrantedAuthority("USER");
 }

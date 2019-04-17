@@ -24,7 +24,4 @@ public class Profile extends AbstractPersistable<Long> {
     
     @OneToOne
     Photo profileImage;
-    
-    @OneToOne
-    Account account; // Profile owner
 }

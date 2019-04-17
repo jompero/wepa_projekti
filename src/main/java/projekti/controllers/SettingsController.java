@@ -32,6 +32,7 @@ public class SettingsController {
         if(bindingResult.hasErrors()) {
             return "settings";
         }
+        accounts.setProfile(profile);
         profiles.saveProfile(profile);
         
         return "redirect:/profile";

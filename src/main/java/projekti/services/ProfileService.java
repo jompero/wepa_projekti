@@ -12,9 +12,11 @@ public class ProfileService {
     
     @Autowired
     private ProfileRepository profiles;
+    @Autowired
+    private AccountService accounts;
     
     public Profile getProfile(Account account) {
-        Profile profile = profiles.findByAccount(account);
+        Profile profile = accounts.getProfile();
         return profile;
     }
 
