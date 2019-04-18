@@ -3,7 +3,7 @@ package projekti.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import projekti.entities.Account;
+import projekti.entities.Comment;
 import projekti.entities.Profile;
 import projekti.repositories.ProfileRepository;
 
@@ -14,6 +14,8 @@ public class ProfileService {
     private ProfileRepository profiles;
     @Autowired
     private AccountService accounts;
+    @Autowired
+    private CommentsService comments;
     
     public Profile getProfile(String profileName) {
         Profile profile = profiles.findByProfileName(profileName);
@@ -45,5 +47,11 @@ public class ProfileService {
             }
         }
         return true;
+    }
+
+    public void comment(Profile to, Comment comment) {
+        comment.setFrom(getActiveProfile());
+        to.getComments().add(comments.saveComment(comment));
+        profiles.save(to);
     }
 }

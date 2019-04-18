@@ -45,7 +45,7 @@ public class SettingsController {
         }
 
         account.setProfile(profile);
-        Profile update = profiles.saveProfile(profile);
+        profiles.saveProfile(profile);
 
         return "redirect:/profile";
     }
