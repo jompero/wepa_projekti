@@ -17,7 +17,6 @@ public class DevelopmentSecurityConfiguration extends WebSecurityConfigurerAdapt
         
         http.authorizeRequests()
                 .antMatchers("/h2-console", "/h2-console/**").permitAll()
-                .antMatchers("/").permitAll()
                 .antMatchers("/signup").permitAll()
                 .anyRequest().authenticated();
         http.formLogin()

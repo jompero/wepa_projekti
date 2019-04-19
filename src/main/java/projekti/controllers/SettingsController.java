@@ -23,7 +23,9 @@ public class SettingsController {
     private ProfileService profiles;
 
     @GetMapping("/settings")
-    public String getSettings(@ModelAttribute Profile profile, Model model) {
+    public String getSettings(@ModelAttribute Profile profile, 
+            @ModelAttribute Profile photo, 
+            Model model) {
         Profile activeProfile = account.getProfile();
         if (activeProfile != null) {
             model.addAttribute("profile", activeProfile);
@@ -44,7 +46,6 @@ public class SettingsController {
             return "settings";
         }
 
-        account.setProfile(profile);
         profiles.saveProfile(profile);
 
         return "redirect:/profile";

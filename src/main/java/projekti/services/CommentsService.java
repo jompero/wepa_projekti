@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import projekti.entities.Comment;
-import projekti.entities.Profile;
 import projekti.repositories.CommentsRepository;
-import projekti.repositories.ProfileRepository;
 
 @Service
 public class CommentsService {

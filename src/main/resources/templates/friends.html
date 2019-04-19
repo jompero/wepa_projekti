@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div th:replace="fragments/layout :: head('Friends')"></div>
+    <body>
+		<div th:replace="fragments/layout :: navbar"></div>		
+		<div class="container">
+			<div class="row">
+                <div>
+                    <h1>Friends</h1>
+                    <ul th:each="friend : ${friends}">
+                        <li><a th:href="@{/profile/{profileName}(profileName=${friend.profileName})}" th:text="${friend.profileName} ">friend's name</a></li>
+                    </ul>
+                </div>
+			</div>
+		</div>
+    </body>
+</html>

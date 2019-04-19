@@ -1,14 +1,33 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <div th:replace="fragments/layout :: head(${title})"></div>
+    <div th:replace="fragments/layout :: head('Mockbook')"></div>
     <body>
 		<div th:replace="fragments/layout :: navbar"></div>		
 		<div class="container">
-			<div class="col-sm-3">
-				<h1>User list</h1>
-				<ul th:each="user : ${users}">
-					<li th:text="${user.username}"></li>
-				</ul>
+			<div class="row">
+				<div>
+					<h1>Dashboard</h1>
+					<!-- Friend requests -->
+					<div th:each="request : ${friendRequests}">
+							<div class="row">
+								<!-- From -->
+								<span class="pr-2"><a th:href="@{/profile/{from}(from=${request.from.profileName})}" th:text="${request.from.profileName}">Sent by</a></span>
+								<!-- When -->
+								<span><time th:text="${#dates.format(request.createdDate, 'dd.MM.yyyy HH:mm')}">time</time></span>
+							</div>
+							<div class ="row">
+								<!-- Confirm reauest -->
+								<div>
+									<form class="form-group" th:action="@{/friends/{id}?accept=true(id=${request.id})}" method="POST">
+										<input class="btn btn-primary" type="submit" value="Accept">
+									</form>
+									<form class="form-group" th:action="@{/friends/{id}?accept=false(id=${request.id})}" method="POST">
+										<input class="btn btn-secondary" type="submit" value="Decline">
+									</form>
+								</div>
+							</div>
+						</div>
+				</div>
 			</div>
 		</div>
     </body>

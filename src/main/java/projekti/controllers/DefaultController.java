@@ -4,19 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import projekti.repositories.AccountRepository;
+
+import projekti.services.FriendRequestService;
 
 @Controller
 public class DefaultController {
-    
+
     @Autowired
-    AccountRepository accountRepository;
+    FriendRequestService friendRequests;
     
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("users", accountRepository.findAll());
-        model.addAttribute("profilename", "USERNAME_HERE");
-        model.addAttribute("title", "Mockbook");
+        model.addAttribute("friendRequests", friendRequests.findAll());
         return "index";
     }
 }

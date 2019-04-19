@@ -1,13 +1,14 @@
 package projekti.services;
 
-import projekti.entities.Account;
 import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import projekti.entities.Account;
 import projekti.repositories.AccountRepository;
 
 @Service
@@ -31,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 true,
                 true,
                 true,
-                Arrays.asList(new SimpleGrantedAuthority("USER")));
+                Arrays.asList(account.getAuthority()));
     }
 
 }

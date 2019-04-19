@@ -29,4 +29,5 @@ public class Account extends AbstractPersistable<Long> {
     Profile profile;
     
     private SimpleGrantedAuthority authority = new SimpleGrantedAuthority("USER");
+    
 }

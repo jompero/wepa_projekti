@@ -2,26 +2,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <div th:replace="fragments/layout :: head('Profile settings')"></div>
     <body>
-		<div th:replace="fragments/layout :: navbar"></div>
-		<div class="container"></br>
-			<h1>Profile settings</h1></br>
-			<form class="form-group" th:action="@{/settings}" th:object="${profile}" method="POST">
-				<!-- Profile id -->
-				<input type="hidden" th:field="*{id}"/>
-				<!-- Profile name -->
-				<span class="formLabel">Profile name:</span>
-				<input class="form-control"  type="text" aria-describedby="profileNameHelp" name="profileName" th:field="*{profileName}">
-				<small id="profileNameHelp" class="form-text text-muted">Can be changed later.</small>
-				<div th:if="${#fields.hasErrors('profileName')}" th:errors="*{profileName}" class="text-danger"></div></br>
-				<!-- First name -->
-				<span class="formLabel">First name:</span><input class="form-control"  type="text" name="firstName" th:field="*{firstName}"></br>
-				<!-- Last name -->
-				<span class="formLabel">Last name:</span><input class="form-control"  type="text" name="lastName" th:field="*{lastName}"></br>
-				<!-- Submit -->
-				<input class="btn btn-primary" type="submit" value="Save">
-				<!-- Profile image -->
-				<!-- <input type="hidden" th:field="*{profileImage}"/> -->
-			</form>
-		</div>
+			<div th:replace="fragments/layout :: navbar"></div>
+			<div class="container"></br>
+				<div class="row">
+					<!-- Profile info -->
+					<form class="col form-group" th:action="@{/settings}" th:object="${profile}" method="POST">
+						<h1>Profile settings</h1>
+						<!-- Profile id -->
+						<input type="hidden" th:field="*{id}"/>
+						<!-- Profile name -->
+						<div class="py-2">
+							<div class="formLabel">Profile name:</div>
+							<input class="form-control"  type="text" aria-describedby="profileNameHelp" name="profileName" th:field="*{profileName}">
+							<small id="profileNameHelp" class="form-text text-muted">Can be changed later.</small>
+							<div th:if="${#fields.hasErrors('profileName')}" th:errors="*{profileName}" class="text-danger"></div>
+						</div>
+						<!-- First name -->
+						<div class="py-2">
+							<span class="formLabel">First name:</span><input class="form-control"  type="text" name="firstName" th:field="*{firstName}">
+						</div>
+						<!-- Last name -->
+						<div class="py-2">
+							<span class="formLabel">Last name:</span><input class="form-control"  type="text" name="lastName" th:field="*{lastName}">
+						</div>
+						<!-- Profile image -->
+						<!-- <input type="hidden" th:field="*{profileImage}"/> -->
+						<!-- Submit -->
+						<div class="py-2">
+							<input class="btn btn-primary" type="submit" value="Save">
+						</div>
+					</form>
+				</div>
+				<div class="row"></div>
+					<!-- Upload images -->
+					<h1>Upload photos</h1>
+					<form class="col form-group" th:action="@{/album}" method="POST" enctype="multipart/form-data">
+						<div class="py-2">
+							<input class="custom-file-input" id="customFile" type="file" name="file" />
+							<label class="custom-file-label" for="customFile">Choose file</label>
+						</div>
+						<div class="row py-2">
+							<input class="btn btn-primary" type="submit" value="Upload"/>
+							<div th:if="${param.fileerror}" class="text-danger">
+								<div>Error occured while uploading image.</div>
+							</div>
+						</div>
+					</form>
+			</div>
     </body>
 </html>

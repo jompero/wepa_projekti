@@ -1,10 +1,11 @@
 package projekti.entities;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import lombok.AllArgsConstructor;
@@ -17,9 +18,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FriendRequest extends AbstractPersistable<Long> {
     
+    @ManyToOne
     Profile from;
+
+    @ManyToOne
     Profile to;
 
-    @CreatedDate
-    private LocalDate createdDate;
+    @CreationTimestamp
+    private Date createdDate;
 }

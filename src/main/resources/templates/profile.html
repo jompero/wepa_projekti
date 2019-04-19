@@ -1,51 +1,55 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <div th:replace="fragments/layout :: head(${title})"></div>
+	<div th:replace="fragments/layout :: head(${title})"></div>
 		
-		<body>
+	<body>
 		<div th:replace="fragments/layout :: navbar"></div>	
 
-		<!-- Profile -->
-		<div class="container">
-			<div class="col-sm-3">
-				<h1 th:text="${profile.profileName}">Profile Name</h1>
-                <h2 th:text="${profile.firstName + ' ' + profile.lastName}"></h2>
-                <!-- insert profile photo -->
-			</div>
-		</div>
-
-		<!-- Wall -->
-		<div class="container">
-		<!-- Friend request -->
-		<div class="container">
-				<div class="col-sm"></br>
-					<h1>Sign Up</h1></br>
-					<form class="form-group" th:action="@{/profile/${profile}/friendrequest" th:object="${friendRequest}" method="POST">
-						<input class="btn btn-primary" type="submit" value="Send a friend request!">
-					</form>	
+		<!-- Profile page -->
+		<div class="container p-3">
+			<div class="row">
+				<div class="col-sm-3">
+					<!-- Profile -->
+					<div>
+						<!-- insert profile photo -->
+						<h1 th:text="${profile.firstName + ' ' + profile.lastName}"></h1>
+						<h5 class="font-weight-light" th:text="${profile.profileName}">Profile Name</h5>
+					</div>
 				</div>
-			</div>
-			<!-- Post a comment -->
-			<div class="container">
-					<div class="col-sm"></br>
-						<h1>Sign Up</h1></br>
-						<form class="form-group" th:action="@{/profile/${profile}/comment" th:object="${comment}" method="POST">
+				<div class="col-sm">
+					<!-- Wall -->
+					<!-- Friend request -->
+					<div></br>
+						<form class="form-group" th:action="@{/profile/{name}/request(name=${profile.profileName})}" th:object="${friendRequest}" method="POST">
+							<input class="btn btn-primary" type="submit" value="Send a friend request!">
+						</form>	
+					</div>
+
+					<!-- Post a comment -->
+					<div>
+						<form class="form-group" th:action="@{/profile/{name}/comment(name=${profile.profileName})}" th:object="${comment}" method="POST">
 							<div class="formLabel">Post something on this wall:</div>
 							<input class="form-control" type="text" name="content" th:field="*{content}" />
 							<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-danger"></div></br>
-							<input class="btn btn-primary" type="submit" value="Send">
+							<input class="btn btn-primary" type="submit" value="Post">
 						</form>	
 					</div>
+
+					<!-- Posted comments -->
+					<div class="m-3" th:each="comment : ${profile.comments}">
+						<div class="row">
+							<!-- From -->
+							<span class="pr-2"><a th:href="@{/profile/{from}(from=${comment.from.profileName})}" th:text="${comment.from.profileName}">Sent by</a></span>
+							<!-- When -->
+							<span><time th:text="${#dates.format(comment.createdDate, 'dd.MM.yyyy HH:mm')}">time</time></span>
+						</div>
+						<div class ="row">
+							<!-- Comment -->
+							<span><p th:text="${comment.content}"></p></span>
+						</div>
+					</div>
 				</div>
-			<!-- Posted comments -->
-			<div class="row" th:each="comment : ${profile.comments}">
-				<div class="col-sm">
-					<a href="${comment.from}"></a><time th:text="${#dates.formatISO(${comment.createdDate})}"></time>
-					<p th:text="${comment.content}"></p>
-				</div>
-			</div>
-				
 			</div>
 		</div>
-    </body>
+	</body>
 </html>

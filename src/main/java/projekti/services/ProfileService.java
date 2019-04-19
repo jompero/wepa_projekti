@@ -1,5 +1,7 @@
 package projekti.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,9 @@ public class ProfileService {
         Profile profile = profiles.findByProfileName(profileName);
         Profile activeProfile = getActiveProfile();
         if (profile != null) {
+            if (activeProfile == null) {
+                return false;
+            }
             if (activeProfile != null && activeProfile.getId() != profile.getId()) {
                 return false;
             }
@@ -52,6 +57,17 @@ public class ProfileService {
     public void comment(Profile to, Comment comment) {
         comment.setFrom(getActiveProfile());
         to.getComments().add(comments.saveComment(comment));
+        profiles.save(to);
+    }
+
+    public List<Profile> getActiveProfileFriends() {
+        Profile activeProfile = getActiveProfile();
+        return activeProfile.getFriends();
+    }
+
+    public void addFriend(Profile from, Profile to) {
+        to.getFriends().add(from);
+        from.getFriends().add(to);
         profiles.save(to);
     }
 }

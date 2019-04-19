@@ -17,6 +17,8 @@ public class AccountService {
     private AccountRepository accounts;
     @Autowired
     private DevelopmentSecurityConfiguration sec;
+    @Autowired
+    private ProfileService profiles;
     
     public Account getActiveAccount() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -28,6 +30,9 @@ public class AccountService {
     public void createAccount(Account account) {
         account.setPassword(sec.passwordEncoder().encode(account.getPassword())); // Password is passed as plain text in form but needs to be encoded
         accounts.save(account);
+        // Let's also populate the profile so that it isn't null
+        Profile profile = new Profile();
+        profile.setProfileName(Integer.toString(account.hashCode()));
     }
 
     public void setProfile(Profile profile) {

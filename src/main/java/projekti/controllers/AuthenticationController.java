@@ -1,5 +1,7 @@
 package projekti.controllers;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,30 +17,33 @@ import projekti.services.AccountService;
 
 @Controller
 public class AuthenticationController {
-    
+
     @Autowired
     private AccountService accounts;
 
     @GetMapping("/login")
     public String getLogin(@ModelAttribute Account account, Model model) {
-        model.addAttribute("title", "Log In");
-        model.addAttribute("profilename", "USERNAME_HERE");
         return "login";
     }
 
     @GetMapping("/signup")
     public String getSignUp(@ModelAttribute Account account, Model model) {
-        model.addAttribute("title", "Sign Up");
-        model.addAttribute("profilename", "USERNAME_HERE");
         return "signup";
     }
-    
+
     @PostMapping("/signup")
-    public String postSignUpForm(@Valid @ModelAttribute Account account, BindingResult bindingResult) {
+    public String postSignUpForm(@Valid @ModelAttribute Account account, BindingResult bindingResult,
+            HttpServletRequest request) throws ServletException {
         if(bindingResult.hasErrors()) {
             return "signup";
         }
+        // Store info for auto-login as password will be encoded after this
+        String username = account.getUsername();
+        String password = account.getPassword();
+        // Save account
         accounts.createAccount(account);
+        // Auto-login
+        request.login(username, password);
         
         return "redirect:/profile";
     }

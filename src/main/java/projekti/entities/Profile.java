@@ -30,8 +30,9 @@ public class Profile extends AbstractPersistable<Long> {
     @OneToOne
     Photo profileImage;
 
+    // These are the comments on the wall. Not explicitly by this profile.
     @OneToMany
-    List<Comment> comments;
+    List<Comment> comments = new ArrayList<>();
 
     @ManyToMany
     List<Profile> friends = new ArrayList<>();
