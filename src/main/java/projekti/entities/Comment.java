@@ -26,6 +26,12 @@ public class Comment extends AbstractPersistable<Long> {
     @ManyToOne
     Profile from;
 
+    @ManyToOne
+    Profile profile;
+
+    @ManyToOne
+    Photo photo;
+
     @NotNull
     @NotEmpty
     String content;

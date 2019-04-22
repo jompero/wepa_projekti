@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import projekti.entities.Comment;
 import projekti.entities.Photo;
+import projekti.entities.Profile;
+import projekti.services.CommentsService;
 import projekti.services.PhotoService;
 import projekti.services.ProfileService;
 
@@ -30,6 +32,9 @@ public class AlbumController {
 
     @Autowired
     private PhotoService photos;
+
+    @Autowired
+    private CommentsService comments;
 
     @Autowired
     private ProfileService profiles;
@@ -45,9 +50,10 @@ public class AlbumController {
     @GetMapping("/profile/{profileName}/album/{id}")
     public String getPhoto(@ModelAttribute Comment comment, @PathVariable Long id, @PathVariable String profileName, Model model) {
         Photo photo = photos.getPhoto(id);
-        model.addAttribute("profile", profiles.getProfile(profileName));
+        Profile profile = profiles.getProfile(profileName);
+        model.addAttribute("profile", profile);
         model.addAttribute("photo", photo);
-        model.addAttribute("id", id);
+        model.addAttribute("comments", comments.getPage(photo, 0));
         return "photo";
     }
 

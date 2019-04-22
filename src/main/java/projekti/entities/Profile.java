@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -33,12 +34,6 @@ public class Profile extends AbstractPersistable<Long> {
     
     @OneToOne
     Photo profilePhoto;
-
-    // These are the comments on the wall. Not explicitly by this profile.
-    @OneToMany
-    @Basic(fetch = FetchType.LAZY)
-    @Size(max=10)
-    List<Comment> comments = new ArrayList<>();
 
     @ManyToMany
     List<Profile> friends = new ArrayList<>();

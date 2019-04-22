@@ -14,13 +14,13 @@
 				<div class="col-sm">
 					<!-- Wall -->
 					<!-- Friend request -->
-					<div>
-						<form class="form-group" th:action="@{/profile/{name}/request(name=${profile.profileName})}" th:object="${friendRequest}" method="POST">
-							<input class="btn btn-primary" type="submit" value="Send a friend request!">
+					<div class="container">
+						<form class="col form-group" th:action="@{/profile/{name}/request(name=${profile.profileName})}" th:object="${friendRequest}" method="POST">
+							<input class="row btn btn-primary" type="submit" value="Send a friend request!">
 						</form>	
 					</div>
 					<div>
-						<div th:replace="fragments/layout :: commentsection(${profile.comments})"></div>
+						<div th:replace="fragments/layout :: commentsection(${comments})"></div>
 					</div>
 				</div>
 			</div>

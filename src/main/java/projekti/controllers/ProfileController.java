@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import projekti.entities.Comment;
 import projekti.entities.Profile;
+import projekti.services.CommentsService;
 import projekti.services.FriendRequestService;
 import projekti.services.ProfileService;
 
@@ -20,6 +21,8 @@ public class ProfileController {
 
     @Autowired
     private ProfileService profiles;
+    @Autowired
+    private CommentsService comments;
     @Autowired
     private FriendRequestService requests;
     
@@ -34,7 +37,9 @@ public class ProfileController {
 
     @GetMapping("/profile/{profileName}")
     public String getProfile(Model model, @PathVariable String profileName, @ModelAttribute Comment comment) {
-        model.addAttribute("profile", profiles.getProfile(profileName));
+        Profile profile = profiles.getProfile(profileName);
+        model.addAttribute("profile", profile);
+        model.addAttribute("comments", comments.getPage(profile, 0));
         return "profile";
     }
 

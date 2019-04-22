@@ -26,8 +26,8 @@ public class PhotoService {
 
     public void comment(Photo to, Comment comment) {
         comment.setFrom(profiles.getActiveProfile());
-        to.getComments().add(comments.saveComment(comment));
-        photos.save(to);
+        comment.setPhoto(to);
+        comments.saveComment(comment);
     }
 
     public void save(MultipartFile file) throws IOException {

@@ -3,6 +3,7 @@ package projekti.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import projekti.entities.Account;
@@ -71,8 +72,8 @@ public class ProfileService {
 
     public void comment(Profile to, Comment comment) {
         comment.setFrom(getActiveProfile());
-        to.getComments().add(comments.saveComment(comment));
-        profiles.save(to);
+        comment.setProfile(to);
+        comments.saveComment(comment);
     }
 
     public List<Profile> getActiveProfileFriends() {
@@ -90,5 +91,5 @@ public class ProfileService {
         Profile profile = getActiveProfile();
         profile.setProfilePhoto(photos.getPhoto(id));
         profiles.save(profile);
-	}
+    }
 }

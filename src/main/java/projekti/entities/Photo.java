@@ -31,10 +31,6 @@ public class Photo extends AbstractPersistable<Long> {
     private byte[] content;
 
     @OneToMany
-    @Basic(fetch = FetchType.LAZY)
-    private List<Comment> comments = new ArrayList<>();
-
-    @OneToMany
     private List<Profile> likes = new ArrayList<>();
     
     @ManyToOne
