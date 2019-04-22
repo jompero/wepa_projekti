@@ -1,17 +1,24 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <div th:replace="fragments/layout :: head('Friends')"></div>
-    <body>
-		<div th:replace="fragments/layout :: navbar"></div>		
-		<div class="container">
+	<div th:replace="fragments/layout :: head(${title})"></div>
+		
+	<body>
+		<div th:replace="fragments/layout :: navbar"></div>	
+
+		<!-- Profile page -->
+		<div class="container p-3">
 			<div class="row">
-                <div>
+				<div class="col-lg-4">
+					<div th:replace="fragments/profileCards :: profileMain(${profile})"></div>
+				</div>
+				<div class="col-sm">
                     <h1>Friends</h1>
                     <ul th:each="friend : ${friends}">
-                        <li><a th:href="@{/profile/{profileName}(profileName=${friend.profileName})}" th:text="${friend.profileName} ">friend's name</a></li>
+                        <li><a th:href="@{/profile/{profileName}/(profileName=${friend.profileName})}" th:text="${friend.profileName} ">friend's name</a></li>
                     </ul>
-                </div>
+				</div>
 			</div>
 		</div>
-    </body>
+	</body>
 </html>
+

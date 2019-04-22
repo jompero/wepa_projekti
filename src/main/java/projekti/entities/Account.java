@@ -1,5 +1,6 @@
 package projekti.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Account extends AbstractPersistable<Long> {
     
+    @Column(unique=true)
     @NotEmpty
     @Size(min = 4, max = 18)
     private String username;

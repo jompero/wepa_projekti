@@ -37,14 +37,22 @@ public class AuthenticationController {
         if(bindingResult.hasErrors()) {
             return "signup";
         }
+        // Custom check for unique usernames
+        if (!accounts.isUniqueUserName(account.getUsername())) {
+            bindingResult.rejectValue("username", "error.account", "Username taken.");
+            return "signup";
+        }
+
         // Store info for auto-login as password will be encoded after this
         String username = account.getUsername();
         String password = account.getPassword();
+
         // Save account
         accounts.createAccount(account);
+
         // Auto-login
         request.login(username, password);
         
-        return "redirect:/profile";
+        return "redirect:/settings";
     }
 }

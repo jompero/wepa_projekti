@@ -8,45 +8,19 @@
 		<!-- Profile page -->
 		<div class="container p-3">
 			<div class="row">
-				<div class="col-sm-3">
-					<!-- Profile -->
-					<div>
-						<!-- insert profile photo -->
-						<h1 th:text="${profile.firstName + ' ' + profile.lastName}"></h1>
-						<h5 class="font-weight-light" th:text="${profile.profileName}">Profile Name</h5>
-					</div>
+				<div class="col-lg-4">
+					<div th:replace="fragments/profileCards :: profileMain(${profile})"></div>
 				</div>
 				<div class="col-sm">
 					<!-- Wall -->
 					<!-- Friend request -->
-					<div></br>
+					<div>
 						<form class="form-group" th:action="@{/profile/{name}/request(name=${profile.profileName})}" th:object="${friendRequest}" method="POST">
 							<input class="btn btn-primary" type="submit" value="Send a friend request!">
 						</form>	
 					</div>
-
-					<!-- Post a comment -->
 					<div>
-						<form class="form-group" th:action="@{/profile/{name}/comment(name=${profile.profileName})}" th:object="${comment}" method="POST">
-							<div class="formLabel">Post something on this wall:</div>
-							<input class="form-control" type="text" name="content" th:field="*{content}" />
-							<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-danger"></div></br>
-							<input class="btn btn-primary" type="submit" value="Post">
-						</form>	
-					</div>
-
-					<!-- Posted comments -->
-					<div class="m-3" th:each="comment : ${profile.comments}">
-						<div class="row">
-							<!-- From -->
-							<span class="pr-2"><a th:href="@{/profile/{from}(from=${comment.from.profileName})}" th:text="${comment.from.profileName}">Sent by</a></span>
-							<!-- When -->
-							<span><time th:text="${#dates.format(comment.createdDate, 'dd.MM.yyyy HH:mm')}">time</time></span>
-						</div>
-						<div class ="row">
-							<!-- Comment -->
-							<span><p th:text="${comment.content}"></p></span>
-						</div>
+						<div th:replace="fragments/layout :: commentsection(${profile.comments})"></div>
 					</div>
 				</div>
 			</div>

@@ -9,3 +9,4 @@
 .factorypath
 .classpath
 .vscode/settings.json
+.DS_Store

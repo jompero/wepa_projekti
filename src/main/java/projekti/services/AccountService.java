@@ -1,5 +1,6 @@
 package projekti.services;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,11 +29,33 @@ public class AccountService {
     }
 
     public void createAccount(Account account) {
-        account.setPassword(sec.passwordEncoder().encode(account.getPassword())); // Password is passed as plain text in form but needs to be encoded
+        // Password is passed as plain text in form but needs to be encoded
+        account.setPassword(sec.passwordEncoder().encode(account.getPassword()));
         accounts.save(account);
+        
         // Let's also populate the profile so that it isn't null
         Profile profile = new Profile();
-        profile.setProfileName(Integer.toString(account.hashCode()));
+        String randomName = RandomStringUtils.randomAlphanumeric(14);
+        while (!profiles.isUniqueProfileName(randomName)) {
+            randomName = RandomStringUtils.randomAlphanumeric(14);
+        }
+        profile.setProfileName(randomName);
+        profiles.createProfile(account, profile);
+    }
+
+    public boolean isUniqueUserName(String username) {
+        Account account = accounts.findByUsername(username);
+        if (account != null) {
+            return false;
+        }
+        return true;
+    }
+
+    public void setProfile(Account account, Profile profile) {
+        if (account.getProfile() == null) {
+            account.setProfile(profile);
+        }
+        accounts.save(account);
     }
 
     public void setProfile(Profile profile) {

@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div th:replace="fragments/layout :: head('Album')"></div>
+    <body>
+      <div th:replace="fragments/layout :: navbar"></div>	
+
+      <div class="container p-3">
+        <div class="row">
+          <div class="col-lg-4">
+            <div th:replace="fragments/profileCards :: profileMain(${profile})"></div>
+          </div>
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col pb-3 img">
+                <div class="d-flex justify-content-center">
+                  <img class="img" th:src="@{/photos/{id}(id=${id})}" />
+                </div>
+                <div class="d-flex justify-content-center">
+                  <form class="form-group" th:action="@{/settings/profilephoto/{id}(id=${id})}" method="POST">
+                    <input type="submit" class="btn btn-tertiary" value="Set as profile photo">
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div th:replace="fragments/layout :: commentsection(${photo.comments})"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>

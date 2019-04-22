@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import projekti.entities.Profile;
 import projekti.services.FriendRequestService;
 import projekti.services.ProfileService;
 
@@ -19,9 +20,11 @@ public class FriendsController {
     @Autowired
     FriendRequestService friendRequests;
     
-    @GetMapping("/friends")
-    public String index(Model model) {
-        model.addAttribute("friends", profiles.getActiveProfileFriends());
+    @GetMapping("/profile/{profileName}/friends")
+    public String index(@PathVariable String profileName, Model model) {
+        Profile profile = profiles.getProfile(profileName);
+        model.addAttribute("profile", profile);
+        model.addAttribute("friends", profile.getFriends());
         return "friends";
     }
 

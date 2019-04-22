@@ -1,9 +1,47 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <div th:replace="fragments/layout :: head('Friends')"></div>
+    <div th:replace="fragments/layout :: head('Album')"></div>
     <body>
-		<div th:replace="fragments/layout :: navbar"></div>		
-		<img src="/media/image.png" />
+      <div th:replace="fragments/layout :: navbar"></div>	
+
+      <div class="container p-3">
+        <div class="row">
+          <div class="col-lg-4">
+            <div th:replace="fragments/profileCards :: profileMain(${profile})"></div>
+          </div>
+          <div class="col-lg-8">
+              <!-- Upload images -->
+              <div class="row">
+                  <div class="col">
+                    <form class="row form-group" th:action="@{/photos}" method="POST" enctype="multipart/form-data">
+                      <h1>Upload photos</h1>
+                      <div class="custom-file">
+                        <input class="custom-file-input" id="customFile" type="file" name="file" accept="image/*" />
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                      </div>
+                      <div class="py-2">
+                        <input class="btn btn-primary" type="submit" value="Upload"/>
+                        <div th:if="${param.fileerror}" class="text-danger">
+                          <div>Error occured while uploading image.</div>
+                          <div>You can upload images of size up to 5Mb.</div>
+                        </div>
+                      </div>
+                    </form>
+      
+                    <script>
+                      // Script for file browser to display the file name
+                      $(".custom-file-input").on("change", function() {
+                        var fileName = $(this).val().split("\\").pop();
+                        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                      });
+                    </script>
+                  </div>
+                </div>
+
+            <div th:replace="fragments/layout :: thumbnails(${photos})"></div>	
+          </div>
+        </div>
+      </div>
     </body>
 </html>
 

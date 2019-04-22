@@ -29,7 +29,7 @@ public class ProfileController {
         if (profile == null) {
             return "redirect:/settings";
         }
-        return "redirect:/profile/" + profile.getProfileName();
+        return "redirect:/profile/" + profile.getProfileName() + "/";
     }
 
     @GetMapping("/profile/{profileName}")
@@ -42,7 +42,7 @@ public class ProfileController {
     public String postComment(@Valid @ModelAttribute Comment comment, @PathVariable String profileName) {
         Profile profile = profiles.getProfile(profileName);
         profiles.comment(profile, comment);
-        return "redirect:/profile/" + profileName;
+        return "redirect:/profile/" + profileName + "/";
     }
 
     @PostMapping("/profile/{profileName}/request")
@@ -50,6 +50,6 @@ public class ProfileController {
         Profile from = profiles.getProfile(profileName);
         Profile to = profiles.getActiveProfile();
         requests.saveRequest(from, to);
-        return "redirect:/profile/" + profileName;
+        return "redirect:/profile/" + profileName + "/";
     }
 }

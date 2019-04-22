@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:fragment="head(title)" lang="en">
+    <head th:fragment="head(title)">
         <meta charset="UTF-8" />
 		<title th:text="${title}">Title</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
@@ -11,7 +11,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     </head>
     <body>
-		<nav th:fragment="navbar" class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+		<nav th:fragment="navbar" lang="en" class="navbar navbar-expand-sm bg-dark navbar-dark">
 			<a class="navbar-brand" href="/">Mockbook</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 				<span class="navbar-toggler-icon"></span>
@@ -20,12 +21,6 @@
 				<ul class="navbar-nav">
 					<li class="nav-item">
 						<a class="nav-link" href="/profile/">My Profile</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/friends">Friends</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/settings">Settings</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav ml-auto">
@@ -41,5 +36,35 @@
 				</ul>
 			</div>  
 		</nav>
+
+		<div th:fragment="thumbnails(photos)" lang="en" class="row">
+			<div class="col-sm-3 p-3" th:each="photo : ${photos}">
+				<a th:href="@{{id}/(id=${photo.id})}">
+					<img class="img-thumbnail" th:src="@{/photos/{id}(id=${photo.id})}" />
+				</a>
+			</div>
+		</div>
+
+		<div th:fragment="commentsection(comments)" lang="en" >
+			<div class="container-fluid">
+				<!-- Post a comment -->
+				<div class="row">
+					<div class="col">
+						<form class="form-group" th:action="@{comment}" th:object="${comment}" method="POST">
+							<div class="formLabel">Post something:</div>
+							<input class="form-control" type="text" name="content" th:field="*{content}" />
+							<div class="text-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div></br>
+							<input class="btn btn-primary" type="submit" value="Post">
+						</form>	
+					</div>
+				</div>
+
+				<!-- Posted comments -->
+				<div class="row my-3" th:each="comment : ${comments}">
+					<div th:replace="fragments/profileCards :: comment(${comment})"></div>	
+				</div>
+			</div>
+		</div>
+
     </body>
 </html>

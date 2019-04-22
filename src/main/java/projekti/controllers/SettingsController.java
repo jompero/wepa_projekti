@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import projekti.entities.Profile;
@@ -48,6 +49,13 @@ public class SettingsController {
 
         profiles.saveProfile(profile);
 
-        return "redirect:/profile";
+        return "redirect:/settings/";
+    }
+
+    @PostMapping("/settings/profilephoto/{id}")
+    public String setProfilePhoto(@PathVariable Long id) {
+        profiles.setProfilePhoto(id);
+        String activeProfileName = profiles.getActiveProfile().getProfileName();
+        return String.format("redirect:/profile/%s/album/{id}/", activeProfileName);
     }
 }
