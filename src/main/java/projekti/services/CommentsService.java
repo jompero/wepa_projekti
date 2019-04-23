@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import projekti.entities.Comment;
+import projekti.entities.GenericEntity;
 import projekti.entities.Photo;
 import projekti.entities.Profile;
 import projekti.repositories.CommentsRepository;
@@ -24,14 +25,8 @@ public class CommentsService {
         return comments.save(comment);
     }
 
-	public Page<Comment> getPage(Profile profile, int page) {
+	public Page<Comment> getPage(GenericEntity to, int page) {
         Pageable pr = PageRequest.of(page, 10, Sort.by("createdDate").descending());
-        return comments.findByProfile(profile, pr);
+        return comments.findByTo(to, pr);
 	}
-
-	public Page<Comment> getPage(Photo photo, int page) {
-        Pageable pr = PageRequest.of(page, 10, Sort.by("createdDate").descending());
-        return comments.findByPhoto(photo, pr);
-	}
-
 }

@@ -4,11 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import projekti.entities.Comment;
 import projekti.entities.GenericEntity;
+import projekti.entities.Like;
 
-public interface CommentsRepository extends JpaRepository<Comment, Long> {
+public interface LikeRepository extends JpaRepository<Like, Long> {
 
-	public Page<Comment> findByTo(GenericEntity to, Pageable pr);
+	public Page<Like> findByTo(GenericEntity to, Pageable pr);
 
 }

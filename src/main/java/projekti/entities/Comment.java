@@ -27,10 +27,7 @@ public class Comment extends AbstractPersistable<Long> {
     Profile from;
 
     @ManyToOne
-    Profile profile;
-
-    @ManyToOne
-    Photo photo;
+    GenericEntity to;
 
     @NotNull
     @NotEmpty
@@ -39,6 +36,4 @@ public class Comment extends AbstractPersistable<Long> {
     @CreationTimestamp
     private Date createdDate;
 
-    @OneToMany
-    private Set<Profile> likes = new HashSet<>();
 }

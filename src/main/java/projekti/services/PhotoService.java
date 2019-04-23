@@ -26,7 +26,7 @@ public class PhotoService {
 
     public void comment(Photo to, Comment comment) {
         comment.setFrom(profiles.getActiveProfile());
-        comment.setPhoto(to);
+        comment.setTo(to);
         comments.saveComment(comment);
     }
 

@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Profile extends AbstractPersistable<Long> {
+public class Profile extends GenericEntity {
     
     @Column(unique=true)
     @Size(min = 4, max = 14)

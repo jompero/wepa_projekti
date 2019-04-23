@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Photo extends AbstractPersistable<Long> {
+public class Photo extends GenericEntity {
 
     String name;
     String contentType;
@@ -29,9 +29,6 @@ public class Photo extends AbstractPersistable<Long> {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] content;
-
-    @OneToMany
-    private List<Profile> likes = new ArrayList<>();
     
     @ManyToOne
     private Profile profile;
