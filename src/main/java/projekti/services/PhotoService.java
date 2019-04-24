@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import projekti.ImageConverter;
 import projekti.entities.Comment;
 import projekti.entities.Photo;
+import projekti.entities.Profile;
 import projekti.repositories.PhotoRepository;
 
 @Service
@@ -67,4 +68,15 @@ public class PhotoService {
 	public byte[] getContentOf(Long id) {
 		return getPhoto(id).getContent();
 	}
+    
+    public void likePhoto(Long id) {
+            Photo photo = getPhoto(id);
+            Profile activeProfile = profiles.getActiveProfile();
+            Long profileId = activeProfile.getId();
+            Profile like = photo.getLikes().remove(profileId);
+            if (like == null) {
+                    photo.getLikes().put(profileId, activeProfile);
+            }
+            photos.save(photo);
+    }
 }

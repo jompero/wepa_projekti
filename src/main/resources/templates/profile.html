@@ -11,16 +11,14 @@
 				<div class="col-lg-4">
 					<div th:replace="fragments/profileCards :: profileMain(${profile})"></div>
 				</div>
-				<div class="col-sm">
+				<div class="col-lg">
 					<!-- Wall -->
 					<!-- Friend request -->
-					<div class="container">
-						<form class="col form-group" th:action="@{/profile/{name}/request(name=${profile.profileName})}" th:object="${friendRequest}" method="POST">
-							<input class="row btn btn-primary" type="submit" value="Send a friend request!">
-						</form>	
-					</div>
+					<form class="form-group" th:action="@{/profile/{name}/request(name=${profile.profileName})}" th:object="${friendRequest}" method="POST">
+						<input class="btn-lg btn-primary btn-block" type="submit" value="Send a friend request!">
+					</form>	
 					<div>
-						<div th:replace="fragments/layout :: commentsection(${comments})"></div>
+						<div th:replace="fragments/layout :: commentsection(${comments}, ${activeProfile})"></div>
 					</div>
 				</div>
 			</div>

@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +43,7 @@ public class AlbumController {
     @GetMapping("/profile/{profileName}/album")
     public String getAlbum(@PathVariable String profileName, Model model) {
         List<Photo> ps = photos.getPhotos(profileName);
+        model.addAttribute("actveProfile", profiles.getActiveProfile());
         model.addAttribute("profile", profiles.getProfile(profileName));
         model.addAttribute("photos", ps);
         return "album";
@@ -51,6 +53,7 @@ public class AlbumController {
     public String getPhoto(@ModelAttribute Comment comment, @PathVariable Long id, @PathVariable String profileName, Model model) {
         Photo photo = photos.getPhoto(id);
         Profile profile = profiles.getProfile(profileName);
+        model.addAttribute("activeProfile", profiles.getActiveProfile());
         model.addAttribute("profile", profile);
         model.addAttribute("photo", photo);
         model.addAttribute("comments", comments.getPage(photo, 0));
@@ -91,10 +94,31 @@ public class AlbumController {
 
     @PostMapping("/profile/{profileName}/album/{id}/comment")
     public String postComment(@Valid @ModelAttribute Comment comment, 
+            BindingResult bindingResult,
             @PathVariable String profileName,
             @PathVariable Long id) {
+        if (bindingResult.hasErrors()) {
+            return "album";
+        }
         Photo photo = photos.getPhoto(id);
         photos.comment(photo, comment);
+        return String.format("redirect:/profile/%s/album/%d/", profileName, id);
+    }
+
+    @PostMapping("/profile/{profileName}/album/{photoId}/comment/{id}/like")
+    public String likeComment(@Valid @ModelAttribute Comment comment, 
+            @PathVariable String profileName,
+            @PathVariable Long photoId,
+            @PathVariable Long id) {
+        comments.likeComment(id);
+        return String.format("redirect:/profile/%s/album/%d/", profileName, photoId);
+    }
+
+    @PostMapping("/profile/{profileName}/album/{id}/like")
+    public String likePhoto(@Valid @ModelAttribute Comment comment, 
+            @PathVariable String profileName,
+            @PathVariable Long id) {
+        photos.likePhoto(id);
         return String.format("redirect:/profile/%s/album/%d/", profileName, id);
     }
 }

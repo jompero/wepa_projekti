@@ -5,12 +5,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import lombok.AllArgsConstructor;
@@ -24,16 +24,18 @@ import lombok.NoArgsConstructor;
 public class Comment extends AbstractPersistable<Long> {
     
     @ManyToOne
-    Profile from;
+    private Profile from;
 
     @ManyToOne
-    GenericEntity to;
+    private GenericEntity to;
 
-    @NotNull
-    @NotEmpty
-    String content;
+    @NotBlank
+    private String content;
 
     @CreationTimestamp
     private Date createdDate;
+
+    @ManyToMany
+    private Set<Profile> likes = new HashSet<>();
 
 }

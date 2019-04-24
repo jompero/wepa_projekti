@@ -45,7 +45,7 @@
 			</div>
 		</div>
 
-		<div th:fragment="commentsection(comments)" lang="en" >
+		<div th:fragment="commentsection(comments, activeProfile)" lang="en" >
 			<div class="container-fluid">
 				<!-- Post a comment -->
 				<div class="row">
@@ -61,7 +61,7 @@
 
 				<!-- Posted comments -->
 				<div class="row my-3" th:each="comment : ${comments}">
-					<div th:replace="fragments/profileCards :: comment(${comment})"></div>	
+					<div th:replace="fragments/profileCards :: comment(${comment}, ${activeProfile})"></div>	
 				</div>
 			</div>
 		</div>

@@ -1,7 +1,7 @@
 package projekti.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -9,8 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +21,7 @@ import lombok.NoArgsConstructor;
 public class Photo extends GenericEntity {
 
     String name;
+    String description;
     String contentType;
     Long size;
 
@@ -32,4 +31,9 @@ public class Photo extends GenericEntity {
     
     @ManyToOne
     private Profile profile;
+
+    @OneToMany
+    @Basic(fetch = FetchType.LAZY)
+    private Map<Long, Profile> likes = new HashMap<>();
+
 }

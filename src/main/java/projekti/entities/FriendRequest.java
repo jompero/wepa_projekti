@@ -19,10 +19,10 @@ import lombok.NoArgsConstructor;
 public class FriendRequest extends AbstractPersistable<Long> {
     
     @ManyToOne
-    Profile from;
+    private Profile from;
 
     @ManyToOne
-    Profile to;
+    private Profile to;
 
     @CreationTimestamp
     private Date createdDate;

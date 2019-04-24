@@ -8,12 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
-
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,5 +32,7 @@ public class Profile extends GenericEntity {
     Photo profilePhoto;
 
     @ManyToMany
+    @Basic(fetch = FetchType.LAZY)
     List<Profile> friends = new ArrayList<>();
+
 }

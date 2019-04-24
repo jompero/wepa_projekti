@@ -24,8 +24,7 @@ public class SettingsController {
     private ProfileService profiles;
 
     @GetMapping("/settings")
-    public String getSettings(@ModelAttribute Profile profile, 
-            @ModelAttribute Profile photo, 
+    public String getSettings(@ModelAttribute Profile profile,
             Model model) {
         Profile activeProfile = account.getProfile();
         if (activeProfile != null) {
@@ -36,14 +35,14 @@ public class SettingsController {
     }
     
     @PostMapping("/settings")
-    public String postSettingsForm(@Valid @ModelAttribute Profile profile, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            return "settings";
-        }
-
+    public String postSettingsForm(@Valid @ModelAttribute Profile profile, BindingResult bindingResult, Model model) {
+        
         String newProfileName = profile.getProfileName();
         if (!profiles.isUniqueProfileName(newProfileName)) {
-            bindingResult.rejectValue("profileName", "error.profile", "Profile name taken.");
+            bindingResult.rejectValue("profile", "error.profile", "Profile name taken.");
+        }
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("profile", account.getProfile());
             return "settings";
         }
 
