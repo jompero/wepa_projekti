@@ -4,13 +4,14 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import lombok.AllArgsConstructor;
@@ -36,6 +37,7 @@ public class Comment extends AbstractPersistable<Long> {
     private Date createdDate;
 
     @ManyToMany
+    @Basic(fetch = FetchType.LAZY)
     private Set<Profile> likes = new HashSet<>();
 
 }

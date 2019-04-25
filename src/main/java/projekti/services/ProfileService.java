@@ -1,5 +1,6 @@
 package projekti.services;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,4 +92,13 @@ public class ProfileService {
         profile.setProfilePhoto(photos.getPhoto(id));
         profiles.save(profile);
     }
+
+	public HashSet<Profile> search(String name) {
+        String[] splitName = name.split(" ");
+        HashSet<Profile> result = new HashSet<>();
+        for (int i = 0; i < splitName.length; i++) {
+            result.addAll(profiles.findByFirstNameStartsWith(splitName[i]));
+        }
+		return result;
+	}
 }

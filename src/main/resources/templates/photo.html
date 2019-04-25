@@ -11,9 +11,9 @@
           </div>
           <div class="col-lg-8">
             <div class="row">
-              <div class="col pb-3 img">
-                <div class="d-flex justify-content-center">
-                  <img class="img" th:src="@{/photos/{id}(id=${photo.id})}" />
+              <div class="col pb-3">
+                <div class="text-center">
+                  <img class="img-fluid" th:src="@{/photos/{id}(id=${photo.id})}" />
                 </div>
                 <div class="text-center">
                   <form class="form-group" th:action="@{/settings/profilephoto/{id}(id=${id})}" method="POST">
@@ -22,6 +22,15 @@
                 </div>
                 <div>
                   <p th:text="${photo.description}">Photo description</p>
+                </div>
+                <div>
+                  <form class="form-group" th:action="@{like}" method="POST">
+                    <div>
+                        <span class="formLabel" >Likes: </span>
+                        <span class="formLabel" th:text="${#sets.size(photo.likes)}">#</span>
+                    </div>
+                    <input class="btn btn-primary btn-small" type="submit" th:value="${#sets.contains(photo.likes, profile)} ? 'UNLIKE' : 'LIKE'">
+                </form>
                 </div>
               </div>
             </div>

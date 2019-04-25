@@ -116,13 +116,12 @@ public class AlbumController {
     public String likeComment(@PathVariable String profileName,
             @PathVariable Long photoId,
             @PathVariable Long id) {
-        //comments.likeComment(id);
+        comments.likeComment(id);
         return String.format("redirect:/profile/%s/album/%d/", profileName, photoId);
     }
 
     @PostMapping("/profile/{profileName}/album/{id}/like")
-    public String likePhoto(@Valid @ModelAttribute Comment comment, 
-            @PathVariable String profileName,
+    public String likePhoto(@PathVariable String profileName,
             @PathVariable Long id) {
         photos.likePhoto(id);
         return String.format("redirect:/profile/%s/album/%d/", profileName, id);

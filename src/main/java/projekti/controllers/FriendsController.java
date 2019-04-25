@@ -1,5 +1,7 @@
 package projekti.controllers;
 
+import java.util.HashSet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,5 +38,12 @@ public class FriendsController {
             friendRequests.decline(id);
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/search")
+    public String searchProfile(@RequestParam String name, Model model) {
+        HashSet<Profile> result = profiles.search(name);
+        model.addAttribute("profiles", result);
+        return "search";
     }
 }

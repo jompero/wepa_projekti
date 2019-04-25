@@ -62,13 +62,13 @@
                         <!-- Content and likes -->
                         <div class="row">
                             <p class="col" th:text="${comment.content}">Comment</p>
-                            <div class="col-2 text-right">
+                            <div class="col-lg-2 text-right">
                                 <form class="form-group" th:action="@{comment/{id}/like/(id=${comment.id})}" method="POST">
                                     <div>
                                         <span class="formLabel" >Likes: </span>
                                         <span class="formLabel" th:text="${#sets.size(comment.likes)}">#</span>
                                     </div>
-                                    <input class="btn btn-primary" type="submit" th:value="${#sets.contains(comment.likes, profile)} ? 'UNLIKE' : 'LIKE'">
+                                    <input class="btn btn-primary btn-small" type="submit" th:value="${#sets.contains(comment.likes, profile)} ? 'UNLIKE' : 'LIKE'">
                                 </form>
                             </div>
                         </div>
@@ -100,6 +100,31 @@
             </a>
         </div>
 
+        <div th:fragment="profileMini(profile)" lang="en">
+            <!-- Smal Profile card for comments -->
+            <div class="container-fluid">
+                <div class="row">
+
+                    <!-- Profile photo -->
+                    <div class="col-2">
+                        <div>
+                            <div th:replace="fragments/profileCards :: profilePhoto(${profile})"></div>	
+                        </div>
+                    </div>
+
+                    <!-- Comment -->
+                    <div class="col">
+                        <!-- Name and timestamp -->
+                        <div class="row">
+                            <h4 class="col text-left">
+                                <div th:replace="fragments/profileCards :: profileName(${profile})"></div>
+                            </h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </body>
 
  

@@ -1,7 +1,7 @@
 package projekti.entities;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -12,12 +12,14 @@ import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude="profile")
 public class Photo extends GenericEntity {
 
     String name;
@@ -30,10 +32,11 @@ public class Photo extends GenericEntity {
     private byte[] content;
     
     @ManyToOne
+    @Basic(fetch = FetchType.LAZY)
     private Profile profile;
 
     @OneToMany
     @Basic(fetch = FetchType.LAZY)
-    private Map<Long, Profile> likes = new HashMap<>();
+    private Set<Profile> likes = new HashSet<>();
 
 }

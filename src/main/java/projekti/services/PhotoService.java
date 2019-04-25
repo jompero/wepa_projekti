@@ -73,11 +73,11 @@ public class PhotoService {
     public void likePhoto(Long id) {
             Photo photo = getPhoto(id);
             Profile activeProfile = profiles.getActiveProfile();
-            Long profileId = activeProfile.getId();
-            Profile like = photo.getLikes().remove(profileId);
-            if (like == null) {
-                    photo.getLikes().put(profileId, activeProfile);
+            
+            if (!photo.getLikes().remove(activeProfile)) {
+                    photo.getLikes().add(activeProfile);
             }
+
             photos.save(photo);
     }
 }
