@@ -41,7 +41,7 @@ public class AlbumController {
     private ProfileService profiles;
 
     @GetMapping("/profile/{profileName}/album")
-    public String getAlbum(@PathVariable String profileName, Model model) {
+    public String getAlbum(@ModelAttribute Photo phoro, @PathVariable String profileName, Model model) {
         List<Photo> ps = photos.getPhotos(profileName);
         model.addAttribute("actveProfile", profiles.getActiveProfile());
         model.addAttribute("profile", profiles.getProfile(profileName));
@@ -79,12 +79,12 @@ public class AlbumController {
     }
 
     @PostMapping("/photos")
-    public String uploadPhoto(@RequestParam("file") MultipartFile file) {
+    public String uploadPhoto(@RequestParam("file") MultipartFile file, @RequestParam String description) {
         String profileName = profiles.getActiveProfile().getProfileName();
         String redirect = String.format("redirect:/profile/%s/album/", profileName);
         
         try {
-			photos.save(file);
+			photos.save(file, description);
 		} catch (IOException e) {
 			return redirect + "?fileerror=true";
         }
@@ -96,9 +96,16 @@ public class AlbumController {
     public String postComment(@Valid @ModelAttribute Comment comment, 
             BindingResult bindingResult,
             @PathVariable String profileName,
-            @PathVariable Long id) {
+            @PathVariable Long id,
+            Model model) {
         if (bindingResult.hasErrors()) {
-            return "album";
+            Photo photo = photos.getPhoto(id);
+            Profile profile = profiles.getProfile(profileName);
+            model.addAttribute("activeProfile", profiles.getActiveProfile());
+            model.addAttribute("profile", profile);
+            model.addAttribute("photo", photo);
+            model.addAttribute("comments", comments.getPage(photo, 0));
+            return "photo";
         }
         Photo photo = photos.getPhoto(id);
         photos.comment(photo, comment);
@@ -106,11 +113,10 @@ public class AlbumController {
     }
 
     @PostMapping("/profile/{profileName}/album/{photoId}/comment/{id}/like")
-    public String likeComment(@Valid @ModelAttribute Comment comment, 
-            @PathVariable String profileName,
+    public String likeComment(@PathVariable String profileName,
             @PathVariable Long photoId,
             @PathVariable Long id) {
-        comments.likeComment(id);
+        //comments.likeComment(id);
         return String.format("redirect:/profile/%s/album/%d/", profileName, photoId);
     }
 

@@ -29,6 +29,7 @@ public class Profile extends GenericEntity {
     String lastName = "";
     
     @OneToOne
+    @Basic(fetch = FetchType.LAZY)
     Photo profilePhoto;
 
     @ManyToMany

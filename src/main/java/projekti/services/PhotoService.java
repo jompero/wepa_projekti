@@ -31,7 +31,7 @@ public class PhotoService {
         comments.saveComment(comment);
     }
 
-    public void save(MultipartFile file) throws IOException {
+    public void save(MultipartFile file, String description) throws IOException {
         // The file browser allows only images to be selected, 
         // however, we need to catch the case where they bypass this.
         if (photos.findByProfile(profiles.getActiveProfile()).size() >= 10) {
@@ -50,6 +50,7 @@ public class PhotoService {
         photo.setContent(image);
 
         photo.setName(file.getOriginalFilename());
+        photo.setDescription(description);
         photo.setSize((long) image.length);
         photo.setContentType("image/jpg");
 

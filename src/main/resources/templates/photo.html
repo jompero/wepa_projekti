@@ -13,12 +13,15 @@
             <div class="row">
               <div class="col pb-3 img">
                 <div class="d-flex justify-content-center">
-                  <img class="img" th:src="@{/photos/{id}(id=${id})}" />
+                  <img class="img" th:src="@{/photos/{id}(id=${photo.id})}" />
                 </div>
-                <div class="d-flex justify-content-center">
+                <div class="text-center">
                   <form class="form-group" th:action="@{/settings/profilephoto/{id}(id=${id})}" method="POST">
                     <input type="submit" class="btn btn-tertiary" value="Set as profile photo">
                   </form>
+                </div>
+                <div>
+                  <p th:text="${photo.description}">Photo description</p>
                 </div>
               </div>
             </div>

@@ -19,10 +19,17 @@ public class ImageConverter {
         int orginalWidth = image.getWidth();
         double aspectRatio = (double) orginalWidth / originalHeight;
 
-        int height = 500;
-        int width = (int) (aspectRatio * height);
+        int height;
+        int width;
+        if (aspectRatio < 1.58) {
+            height = 500;
+            width = (int) (aspectRatio * height);
+        } else {
+            width = 790;
+            height = (int) (width / aspectRatio);
+        }
 
-        BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_INDEXED);
+        BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = resizedImage.createGraphics();
         g.drawImage(image, 0, 0, width, height, null);
         g.dispose();

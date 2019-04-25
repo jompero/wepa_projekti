@@ -48,9 +48,14 @@ public class ProfileController {
     @PostMapping("/profile/{profileName}/comment")
     public String postComment(@Valid @ModelAttribute Comment comment, 
             BindingResult bindingResult,
-            @PathVariable String profileName) {
+            @PathVariable String profileName,
+            Model model) {
         
-        if(!bindingResult.hasErrors()) {
+        if(bindingResult.hasErrors()) {
+            Profile profile = profiles.getProfile(profileName);
+            model.addAttribute("activeProfile", profiles.getActiveProfile());
+            model.addAttribute("profile", profile);
+            model.addAttribute("comments", comments.getPage(profile, 0));
             return "profile";
         }
         Profile profile = profiles.getProfile(profileName);
