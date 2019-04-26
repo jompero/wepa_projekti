@@ -94,11 +94,8 @@ public class ProfileService {
     }
 
 	public HashSet<Profile> search(String name) {
-        String[] splitName = name.split(" ");
         HashSet<Profile> result = new HashSet<>();
-        for (int i = 0; i < splitName.length; i++) {
-            result.addAll(profiles.findByFirstNameStartsWith(splitName[i]));
-        }
+        result.addAll(profiles.findByFullNameContains(name.replace(" ", "")));
 		return result;
 	}
 }

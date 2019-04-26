@@ -11,6 +11,11 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
     public Profile findByProfileName(String profileName);
 
-	public List<Profile> findByFirstNameStartsWith(String string);
+    @Query(
+        "SELECT p FROM Profile p " + 
+        "WHERE TRIM(CONCAT(LOWER(p.firstName), LOWER(p.lastName), LOWER(p.profileName))) " + 
+        "LIKE CONCAT('%', LOWER(?1), '%')"
+    )
+    public List<Profile> findByFullNameContains(String string);
 
 }
