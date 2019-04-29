@@ -29,6 +29,7 @@ public class SettingsController {
         Profile activeProfile = account.getProfile();
         if (activeProfile != null) {
             model.addAttribute("profile", activeProfile);
+            model.addAttribute("activeProfile", activeProfile);
         }
         
         return "settings";

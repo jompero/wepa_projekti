@@ -43,7 +43,7 @@ public class AlbumController {
     @GetMapping("/profile/{profileName}/album")
     public String getAlbum(@ModelAttribute Photo phoro, @PathVariable String profileName, Model model) {
         List<Photo> ps = photos.getPhotos(profileName);
-        model.addAttribute("actveProfile", profiles.getActiveProfile());
+        model.addAttribute("activeProfile", profiles.getActiveProfile());
         model.addAttribute("profile", profiles.getProfile(profileName));
         model.addAttribute("photos", ps);
         return "album";

@@ -27,6 +27,7 @@ public class FriendsController {
         Profile profile = profiles.getProfile(profileName);
         model.addAttribute("profile", profile);
         model.addAttribute("friends", profile.getFriends());
+        model.addAttribute("activeProfile", profiles.getActiveProfile());
         return "friends";
     }
 

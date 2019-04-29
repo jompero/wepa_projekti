@@ -2,21 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <div th:replace="fragments/layout :: head(${title})"></div>
     <body>
-		<div th:replace="fragments/layout :: navbar"></div>
-		<div class="container">
-			<div class="col-lg-6"></br>
-				<h1>Sign Up</h1></br>
-				<form class="form-group" th:action="@{/signup}" th:object="${account}" method="POST">
-					<div class="formLabel">Username:</div>
-					<input class="form-control" type="text" name="username" th:field="*{username}" />
-					<div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></div></br>
-					<div class="formLabel">Password:</div>
-					<input class="form-control" type="password" name="password">
-					<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></div></br>
-					<input class="btn btn-primary" type="submit" value="Sign up">
-				</form>	
+			<div th:replace="fragments/layout :: navbar"></div>
+			<div class="container">
+				<div class="row p-3">
+					<div class="col-lg-6">
+						<h1>Sign Up</h1></br>
+						<form class="form-group" th:action="@{/signup}" th:object="${account}" method="POST">
+							<div class="formLabel">Username:</div>
+							<input class="form-control" type="text" name="username" th:field="*{username}" />
+							<div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></div></br>
+							<div class="formLabel">Password:</div>
+							<input class="form-control" type="password" name="password">
+							<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></div></br>
+							<input class="btn btn-primary" type="submit" value="Sign up">
+						</form>	
+					</div>
+				</div>
 			</div>
-		</div>
 
     </body>
 </html>

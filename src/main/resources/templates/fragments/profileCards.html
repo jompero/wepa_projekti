@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <body>
-        <div th:fragment="profileMain(profile)" lang="en" class="container-fluid">
+        <div th:fragment="profileMain(profile, activeProfile)" lang="en" class="container-fluid">
             <div class="row">
                 <div class="col">
                         <!-- Profile -->
@@ -25,9 +25,12 @@
                                     <li class="nav-item">
                                         <a class="nav-link" th:href="@{/profile/{profileName}/friends/(profileName=${profile.profileName})}">Friends</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/settings/}">Profile Settings</a>
-                                    </li>
+                                    <div th:if="${profile == activeProfile}">
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/settings/}">Profile Settings</a>
+                                        </li>
+                                    </div>
+
                                 </ul>
                             </nav>
                         </div>
