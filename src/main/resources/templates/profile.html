@@ -13,10 +13,17 @@
 				</div>
 				<div class="col-lg">
 					<!-- Wall -->
+
 					<!-- Friend request -->
-					<form class="form-group" th:action="@{/profile/{name}/request(name=${profile.profileName})}" th:object="${friendRequest}" method="POST">
-						<input class="btn-lg btn-primary btn-block" type="submit" value="Send a friend request!">
-					</form>	
+					<div th:if="${profile != activeProfile}">
+						<div th:if="${!#sets.contains(activeProfile.friends, profile)}">
+							<form class="form-group" th:action="@{/profile/{name}/request(name=${profile.profileName})}" th:object="${friendRequest}" method="POST">
+								<input class="btn-lg btn-primary btn-block" type="submit" value="Send a friend request!">
+							</form>	
+						</div>
+					</div>
+
+					<!-- Comments -->
 					<div>
 						<div th:replace="fragments/layout :: commentsection(${comments}, ${activeProfile})"></div>
 					</div>

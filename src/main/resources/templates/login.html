@@ -4,21 +4,23 @@
     <body>
 		<div th:replace="fragments/layout :: navbar"></div>
 		<div class="container">
-			<div class="col-lg-6"></br>
-				<h1>Log In</h1></br>
-				<div th:if="${param.error}" class="text-danger">    
-					<div>Invalid username or password.</div></br>
-				</div>
-				<div th:if="${param.logout}" class="text-success">
-					<div>You have been logged out.</div></br>
-				</div>
-				<form class="form-group" th:action="@{/login}" th:object="${account}" method="POST">
-					<div class="formLabel">Username:</div>
-					<input class="form-control" type="text" name="username" th:field="*{username}" /></br>
-					<div class="formLabel">Password:</div>
-					<input class="form-control" type="password" name="password"></br>
-					<input class="btn btn-primary" type="submit" value="Log in">
-				</form>	
+			<div class="row">
+					<div class="col-lg-6"></br>
+						<h1>Log In</h1></br>
+						<div th:if="${param.error}" class="text-danger">    
+							<div>Invalid username or password.</div></br>
+						</div>
+						<div th:if="${param.logout}" class="text-success">
+							<div>You have been logged out.</div></br>
+						</div>
+						<form class="form-group" th:action="@{/login}" th:object="${account}" method="POST">
+							<div class="formLabel">Username:</div>
+							<input class="form-control" type="text" name="username" th:field="*{username}" /></br>
+							<div class="formLabel">Password:</div>
+							<input class="form-control" type="password" name="password"></br>
+							<input class="btn btn-primary" type="submit" value="Log in">
+						</form>	
+					</div>
 			</div>
 		</div>
 

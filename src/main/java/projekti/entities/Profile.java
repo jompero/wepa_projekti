@@ -1,7 +1,9 @@
 package projekti.entities;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -20,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude="profilePhoto")
+@EqualsAndHashCode(exclude={"profilePhoto", "friends"})
 public class Profile extends GenericEntity {
     
     @Column(unique=true)
@@ -36,6 +38,6 @@ public class Profile extends GenericEntity {
 
     @ManyToMany
     @Basic(fetch = FetchType.LAZY)
-    List<Profile> friends = new ArrayList<>();
+    Set<Profile> friends = new HashSet<>();
 
 }

@@ -72,8 +72,8 @@ public class ProfileController {
 
     @PostMapping("/profile/{profileName}/request")
     public String postFriendRequest(@PathVariable String profileName) {
-        Profile from = profiles.getProfile(profileName);
-        Profile to = profiles.getActiveProfile();
+        Profile to = profiles.getProfile(profileName);
+        Profile from = profiles.getActiveProfile();
         requests.saveRequest(from, to);
         return "redirect:/profile/" + profileName + "/";
     }

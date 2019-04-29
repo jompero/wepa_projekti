@@ -2,6 +2,7 @@ package projekti.services;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,7 +77,7 @@ public class ProfileService {
         comments.saveComment(comment);
     }
 
-    public List<Profile> getActiveProfileFriends() {
+    public Set<Profile> getActiveProfileFriends() {
         Profile activeProfile = getActiveProfile();
         return activeProfile.getFriends();
     }

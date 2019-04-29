@@ -15,7 +15,7 @@ public class DefaultController {
     
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("friendRequests", friendRequests.findAll());
+        model.addAttribute("friendRequests", friendRequests.getActiveProfileFriendRequests());
         return "index";
     }
 }
