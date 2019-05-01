@@ -25,12 +25,6 @@ public class PhotoService {
     @Autowired
     private CommentsService comments;
 
-    public void comment(Photo to, Comment comment) {
-        comment.setFrom(profiles.getActiveProfile());
-        comment.setTo(to);
-        comments.saveComment(comment);
-    }
-
     public void save(MultipartFile file, String description) throws IOException {
         // The file browser allows only images to be selected, 
         // however, we need to catch the case where they bypass this.

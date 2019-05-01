@@ -49,26 +49,5 @@
 			</div>
 		</div>
 
-		<div th:fragment="commentsection(comments, activeProfile)" lang="en" >
-			<div class="container-fluid">
-				<!-- Post a comment -->
-				<div class="row">
-					<div class="col">
-						<form class="form-group" th:action="@{comment}" th:object="${comment}" method="POST">
-							<div class="formLabel">Post something:</div>
-							<input class="form-control" type="text" name="content" th:field="*{content}" />
-							<div class="text-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div></br>
-							<input class="btn btn-primary" type="submit" value="Post">
-						</form>	
-					</div>
-				</div>
-
-				<!-- Posted comments -->
-				<div class="row my-3" th:each="comment : ${comments}">
-					<div th:replace="fragments/profileCards :: comment(${comment}, ${activeProfile})"></div>	
-				</div>
-			</div>
-		</div>
-
     </body>
 </html>

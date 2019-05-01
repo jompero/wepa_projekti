@@ -6,8 +6,9 @@ import javax.persistence.InheritanceType;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class GenericEntity extends AbstractPersistable<Long> {
+public class GenericEntity extends AbstractPersistable<Long> {
 
 }

@@ -72,6 +72,7 @@ public class ProfileService {
     }
 
     public void comment(Profile to, Comment comment) {
+        if (comment.getContent().isEmpty()) return;
         comment.setFrom(getActiveProfile());
         comment.setTo(to);
         comments.saveComment(comment);

@@ -38,6 +38,68 @@
             </div>
         </div>
 
+        <div th:fragment="message(message, profile, activeProfile)" lang="en">
+                <!-- Smal Profile card the message -->
+                <div class="container-fluid">
+                    <div class="row">
+    
+                        <!-- Profile photo -->
+                        <div class="col-2">
+                            <div th:replace="fragments/profileCards :: profilePhoto(${message.from})"></div>	
+                        </div>
+    
+                        <!-- Message -->
+                        <div class="col">
+                            <!-- Name and timestamp -->
+                            <div class="row">
+                                <h4 class="col text-left">
+                                    <div th:replace="fragments/profileCards :: profileName(${message.from})"></div>
+                                </h4>
+                                
+                                <i class="col text-right text-muted">
+                                    <time th:text="${#dates.format(message.createdDate, 'dd.MM.yyyy HH:mm')}">time</time>
+                                </i>
+                            </div>
+                            <!-- Content and likes -->
+                            <div class="row">
+                                <p class="col" th:text="${message.content}">Message</p>
+                                <div class="col-lg-2 text-right">
+                                    <form class="form-group" th:action="@{message/{id}/like/(id=${message.id})}" method="POST">
+                                        <div>
+                                            <span class="formLabel" >Likes: </span>
+                                            <span class="formLabel" th:text="${#sets.size(message.likes)}">#</span>
+                                        </div>
+                                        <input class="btn btn-primary btn-small" type="submit" th:value="${#sets.contains(message.likes, profile)} ? 'UNLIKE' : 'LIKE'">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="row">
+                        <div class="col ml-3">
+                            <div th:replace="fragments/profileCards :: comments(${@commentsService.getComments(message)}, ${activeProfile})"></div>
+                        </div>
+                    </div>
+
+                    <!-- Post a comment -->
+                    <div class="row pb-3">
+                        <div class="col">
+                            <form class="form-group" th:action="@{comment}" method="POST">
+                                <div class="formLabel">Comment:</div>
+                                <!-- To -->
+                                <input type="hidden" name="to" th:value="${message.id}"/>
+                                <!-- Content -->
+                                <textarea class="form-control" type="text" name="content" placeholder="Enter a comment..."></textarea>
+                                <input class="btn btn-primary my-1" type="submit" value="Comment">
+                            </form>	
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         <div th:fragment="comment(comment, profile)" lang="en">
             <!-- Smal Profile card for comments -->
             <div class="container-fluid">
@@ -109,7 +171,7 @@
                 <div class="row">
 
                     <!-- Profile photo -->
-                    <div class="col-2">
+                    <div class="col-3">
                         <div>
                             <div th:replace="fragments/profileCards :: profilePhoto(${profile})"></div>	
                         </div>
@@ -130,6 +192,14 @@
         </div>
     </body>
 
- 
+    <div th:fragment="comments(comments, activeProfile)" lang="en" >
+        <div class="container-fluid">
+
+            <!-- Posted comments -->
+            <div class="row my-3" th:each="comment : ${comments}">
+                <div th:replace="fragments/profileCards :: comment(${comment}, ${activeProfile})"></div>	
+            </div>
+        </div>
+    </div>
 
 </html>

@@ -56,7 +56,7 @@ public class AlbumController {
         model.addAttribute("activeProfile", profiles.getActiveProfile());
         model.addAttribute("profile", profile);
         model.addAttribute("photo", photo);
-        model.addAttribute("comments", comments.getPage(photo, 0));
+        model.addAttribute("comments", comments.getComments(photo));
         return "photo";
     }
 
@@ -93,22 +93,13 @@ public class AlbumController {
     }
 
     @PostMapping("/profile/{profileName}/album/{id}/comment")
-    public String postComment(@Valid @ModelAttribute Comment comment, 
-            BindingResult bindingResult,
+    public String postComment(@RequestParam String content,
             @PathVariable String profileName,
             @PathVariable Long id,
             Model model) {
-        if (bindingResult.hasErrors()) {
-            Photo photo = photos.getPhoto(id);
-            Profile profile = profiles.getProfile(profileName);
-            model.addAttribute("activeProfile", profiles.getActiveProfile());
-            model.addAttribute("profile", profile);
-            model.addAttribute("photo", photo);
-            model.addAttribute("comments", comments.getPage(photo, 0));
-            return "photo";
-        }
+
         Photo photo = photos.getPhoto(id);
-        photos.comment(photo, comment);
+        comments.commentPhoto(photo, content);
         return String.format("redirect:/profile/%s/album/%d/", profileName, id);
     }
 

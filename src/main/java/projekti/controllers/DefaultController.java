@@ -14,8 +14,7 @@ public class DefaultController {
     FriendRequestService friendRequests;
     
     @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("friendRequests", friendRequests.getActiveProfileFriendRequests());
-        return "index";
+    public String index() {
+        return "redirect:/profile";
     }
 }

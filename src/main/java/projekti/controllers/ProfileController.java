@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import projekti.entities.Comment;
 import projekti.entities.Profile;
@@ -41,12 +42,21 @@ public class ProfileController {
         Profile profile = profiles.getProfile(profileName);
         model.addAttribute("activeProfile", profiles.getActiveProfile());
         model.addAttribute("profile", profile);
-        model.addAttribute("comments", comments.getPage(profile, 0));
+        model.addAttribute("messages", comments.getMessages(profile, 0));
         return "profile";
     }
 
     @PostMapping("/profile/{profileName}/comment")
-    public String postComment(@Valid @ModelAttribute Comment comment, 
+    public String postComment(@RequestParam Long to,
+            @RequestParam String content,
+            @PathVariable String profileName,
+            Model model) {
+        comments.commentComment(content, to);
+        return "redirect:/profile/" + profileName + "/";
+    }
+
+    @PostMapping("/profile/{profileName}/message")
+    public String postMessage(@Valid @ModelAttribute Comment comment, 
             BindingResult bindingResult,
             @PathVariable String profileName,
             Model model) {
@@ -55,7 +65,7 @@ public class ProfileController {
             Profile profile = profiles.getProfile(profileName);
             model.addAttribute("activeProfile", profiles.getActiveProfile());
             model.addAttribute("profile", profile);
-            model.addAttribute("comments", comments.getPage(profile, 0));
+            model.addAttribute("messages", comments.getMessages(profile, 0));
             return "profile";
         }
         Profile profile = profiles.getProfile(profileName);

@@ -23,9 +23,18 @@
 						</div>
 					</div>
 
-					<!-- Comments -->
-					<div th:if="${profile == activeProfile}">
-						<div th:replace="fragments/layout :: commentsection(${comments}, ${activeProfile})"></div>
+					<!-- Message -->
+					<div th:if="${#sets.contains(profile.friends, activeProfile) or profile == activeProfile}">
+						<!-- <div th:replace="fragments/layout :: commentsection(${comments}, ${activeProfile})"></div> -->
+						<form class="form-group" th:action="@{message}" th:object="${comment}" method="POST">
+							<textarea class="form-control" type="text" name="content" placeholder="Enter message here..." th:field="*{content}"></textarea>
+							<div class="text-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+							<input class="btn btn-primary my-1" type="submit" value="Post on the wall">
+						</form>	
+
+						<div th:each="message : ${messages}">
+							<div th:replace="fragments/profileCards :: message(${message}, #{profile}, ${activeProfile})"></div>
+						</div>
 					</div>
 				</div>
 			</div>

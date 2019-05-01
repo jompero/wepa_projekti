@@ -28,17 +28,20 @@ public class FriendsController {
         model.addAttribute("profile", profile);
         model.addAttribute("friends", profile.getFriends());
         model.addAttribute("activeProfile", profiles.getActiveProfile());
+        model.addAttribute("friendRequests", friendRequests.getActiveProfileFriendRequests());
         return "friends";
     }
 
-    @PostMapping("/friends/{id}")
-    public String confirmFriendRequest(@PathVariable Long id, @RequestParam boolean accept) {
+    @PostMapping("/profile/{profileName}/friends/{id}")
+    public String confirmFriendRequest(@PathVariable Long id, 
+            @RequestParam boolean accept,
+            @RequestParam String profileName) {
         if (accept) {
             friendRequests.accept(id);
         } else {
             friendRequests.decline(id);
         }
-        return "redirect:/";
+        return String.format("redirect:/profile/%s/friends/", profileName);
     }
 
     @GetMapping("/search")

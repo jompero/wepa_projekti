@@ -15,15 +15,15 @@
                 <div class="text-center">
                   <img class="img-fluid" th:src="@{/photos/{id}(id=${photo.id})}" />
                 </div>
-                <div class="text-center">
+                <div th:if="${profile == activeProfile}" class="text-center">
                   <form class="form-group" th:action="@{/settings/profilephoto/{id}(id=${id})}" method="POST">
-                    <input th:if="${profile == activeProfile}" type="submit" class="btn btn-tertiary" value="Set as profile photo">
+                    <input type="submit" class="btn btn-tertiary" value="Set as profile photo">
                   </form>
                 </div>
                 <div>
                   <p th:text="${photo.description}">Photo description</p>
                 </div>
-                <div>
+                <div th:if="${#sets.contains(profile.friends, activeProfile) or profile == activeProfile}">
                   <form class="form-group" th:action="@{like}" method="POST">
                     <div>
                         <span class="formLabel" >Likes: </span>
@@ -34,8 +34,20 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div th:replace="fragments/layout :: commentsection(${comments}, ${activeProfile})"></div>
+            <div  th:if="${#sets.contains(profile.friends, activeProfile) or profile == activeProfile}" class="row">
+              <div th:replace="fragments/profileCards :: comments(${comments}, ${activeProfile})"></div>
+            </div>
+
+            <!-- Post a comment -->
+            <div class="row pb-3">
+                <div class="col">
+                    <form class="form-group" th:action="@{comment}" method="POST">
+                        <div class="formLabel">Comment:</div>
+                        <!-- Content -->
+                        <textarea class="form-control" type="text" name="content" placeholder="Enter a comment..."></textarea>
+                        <input class="btn btn-primary my-1" type="submit" value="Comment">
+                    </form>	
+                </div>
             </div>
           </div>
         </div>

@@ -11,12 +11,50 @@
 				<div class="col-lg-4">
 					<div th:replace="fragments/profileCards :: profileMain(${profile}, ${activeProfile})"></div>
 				</div>
-				<div class="col-sm">
-                    <h1>Friends</h1>
-                    <ul th:each="friend : ${friends}">
-                        <li><a th:href="@{/profile/{profileName}/(profileName=${friend.profileName})}" th:text="${friend.profileName} ">friend's name</a></li>
-                    </ul>
+
+				<div class="col">
+					<!-- Friend requests -->
+					<div class="row" th:if="${profile == activeProfile}">
+						<div class="col">
+							<h1>Friend requests</h1>
+							<div th:if="${#lists.isEmpty(friendRequests)}">
+								<p>No friend requests!</p>
+							</div>
+						
+
+							<div th:each="request : ${friendRequests}">
+								<div class="row">
+									<div class="col-lg-6">
+										<div th:replace="fragments/profileCards :: profileMini(${request.from})">Profile</div>
+									</div>
+									<div class="col">
+										<span><time th:text="${#dates.format(request.createdDate, 'dd.MM.yyyy HH:mm')}">time</time></span>
+									</div>
+									<div class="col">
+										<form class="form-group" th:action="@{{id}?accept=true(id=${request.id})}" method="POST">
+											<input class="btn btn-primary btn-small" type="submit" value="Accept">
+										</form>
+									</div>
+									<div class="col">
+										<form class="form-group" th:action="@{{id}?accept=false(id=${request.id})}" method="POST">
+											<input class="btn btn-secondary btn-small" type="submit" value="Decline">
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+	
+					<div class="row">
+						<div class="col">
+							<h1>Friends</h1>
+							<div class="py-3" th:each="friend : ${friends}">
+								<div th:replace="fragments/profileCards :: profileMini(${friend})">Profile</div>
+							</div>
+						</div>
+					</div>
 				</div>
+
 			</div>
 		</div>
 	</body>
