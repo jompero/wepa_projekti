@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
@@ -28,6 +29,7 @@ public class Photo extends GenericEntity {
     Long size;
 
     @Lob
+    @Column(name = "photo", columnDefinition="BLOB")
     @Basic(fetch = FetchType.LAZY)
     private byte[] content;
     
