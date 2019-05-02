@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.activation.UnsupportedDataTypeException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class PhotoService {
     @Autowired
     private CommentsService comments;
 
+    @Transactional
     public void save(MultipartFile file, String description) throws IOException {
         // The file browser allows only images to be selected, 
         // however, we need to catch the case where they bypass this.
@@ -56,10 +58,12 @@ public class PhotoService {
 		return photos.getOne(id);
 	}
 
+    @Transactional
 	public List<Photo> getPhotos(String profileName) {
 		return photos.findByProfile(profiles.getProfile(profileName));
 	}
 
+    @Transactional
 	public byte[] getContentOf(Long id) {
 		return getPhoto(id).getContent();
 	}
