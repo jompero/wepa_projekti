@@ -29,7 +29,7 @@ public class Photo extends GenericEntity {
     Long size;
 
     @Lob
-    @Column(name = "photo", columnDefinition="BLOB")
+    @Column(columnDefinition="BLOB")
     @Basic(fetch = FetchType.LAZY)
     private byte[] content;
     
