@@ -28,12 +28,6 @@ public class DevelopmentSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .permitAll();
     }
     
-//    @Override
-//    public void configure(WebSecurity sec) throws Exception {
-//        // Pyyntöjä ei tarkasteta
-//        sec.ignoring().antMatchers("/**");
-//    }
-    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
