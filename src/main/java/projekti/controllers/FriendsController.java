@@ -35,7 +35,7 @@ public class FriendsController {
     @PostMapping("/profile/{profileName}/friends/{id}")
     public String confirmFriendRequest(@PathVariable Long id, 
             @RequestParam boolean accept,
-            @RequestParam String profileName) {
+            @PathVariable String profileName) {
         if (accept) {
             friendRequests.accept(id);
         } else {
