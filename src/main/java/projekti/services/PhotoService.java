@@ -23,7 +23,6 @@ public class PhotoService {
     @Autowired
     private ProfileService profiles;
 
-    @Transactional
     public void save(MultipartFile file, String description) throws IOException {
         // The file browser allows only images to be selected, 
         // however, we need to catch the case where they bypass this.
@@ -51,17 +50,14 @@ public class PhotoService {
         photos.save(photo);
 	}
 
-    @Transactional
 	public Photo getPhoto(Long id) {
 		return photos.getOne(id);
 	}
 
-    @Transactional
 	public List<Photo> getPhotos(String profileName) {
 		return photos.findByProfile(profiles.getProfile(profileName));
 	}
 
-    @Transactional
 	public byte[] getContentOf(Long id) {
 		return getPhoto(id).getContent();
 	}

@@ -28,8 +28,7 @@ public class Photo extends GenericEntity {
     String contentType;
     Long size;
 
-    @Lob
-    @Column(columnDefinition="BLOB")
+    //@Lob
     //@Type(type="org.hibernate.type.BinaryType") 
     //@Basic(fetch = FetchType.LAZY)
     private byte[] content;
