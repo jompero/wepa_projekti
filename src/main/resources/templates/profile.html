@@ -25,7 +25,6 @@
 
 					<!-- Message -->
 					<div th:if="${#sets.contains(activeProfile.friends, profile)} or ${profile == activeProfile}">
-						<!-- <div th:replace="fragments/layout :: commentsection(${comments}, ${activeProfile})"></div> -->
 						<form class="form-group" th:action="@{message}" th:object="${comment}" method="POST">
 							<textarea class="form-control" type="text" name="content" placeholder="Enter message here..." th:field="*{content}"></textarea>
 							<div class="text-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
