@@ -54,6 +54,7 @@ public class PhotoService {
         photos.save(photo);
 	}
 
+    @Transactional
 	public Photo getPhoto(Long id) {
 		return photos.getOne(id);
 	}
