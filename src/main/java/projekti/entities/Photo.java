@@ -28,9 +28,10 @@ public class Photo extends GenericEntity {
     String contentType;
     Long size;
 
-    //@Lob
-    //@Type(type="org.hibernate.type.BinaryType") 
-    //@Basic(fetch = FetchType.LAZY)
+    // Commenting these out, Heroku didn't like them. 
+    // This means that the entity will not work on H2 database.
+    // @Lob
+    // @Basic(fetch = FetchType.LAZY)
     private byte[] content;
     
     @ManyToOne
