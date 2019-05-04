@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import projekti.ImageConverter;
-import projekti.entities.Comment;
 import projekti.entities.Photo;
 import projekti.entities.Profile;
 import projekti.repositories.PhotoRepository;
@@ -23,8 +22,6 @@ public class PhotoService {
     private PhotoRepository photos;
     @Autowired
     private ProfileService profiles;
-    @Autowired
-    private CommentsService comments;
 
     @Transactional
     public void save(MultipartFile file, String description) throws IOException {
