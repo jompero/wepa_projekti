@@ -23,7 +23,10 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(exclude={"profilePhoto", "friends"})
 public class Profile extends GenericEntity {
     
-    @Column(unique=true)
+    // Uniqueness handled on service level. Commenting this out because NetBeans
+    // fails the build due to 'Duplicate annotation' which is not an error
+    // thrown by VS Code, Travis nor Heroku
+    // @Column(unique=true)
     @Size(min = 4, max = 14)
     String profileName;
 

@@ -3,6 +3,7 @@ package projekti.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -19,8 +20,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Account extends AbstractPersistable<Long> {
     
-    @Column(unique=true)
-    @NotEmpty
+    // Uniqueness handled on service level. Commenting this out because NetBeans
+    // fails the build due to 'Duplicate annotation' which is not an error
+    // thrown by VS Code, Travis nor Heroku
+    // @Column(unique=true)
     @Size(min = 4, max = 18)
     private String username;
     
