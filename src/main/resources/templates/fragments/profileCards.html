@@ -64,7 +64,7 @@
                             <div class="row">
                                 <p class="col" th:text="${message.content}">Message</p>
                                 <div class="col-lg-2 text-right">
-                                    <form class="form-group" th:action="@{message/{id}/like/(id=${message.id})}" method="POST">
+                                    <form class="form-group" th:action="@{comment/{id}/like/(id=${message.id})}" method="POST">
                                         <div>
                                             <span class="formLabel" >Likes: </span>
                                             <span class="formLabel" th:text="${#sets.size(message.likes)}">#</span>

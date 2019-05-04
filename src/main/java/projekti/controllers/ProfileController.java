@@ -79,7 +79,7 @@ public class ProfileController {
         comments.likeComment(id);
         return "redirect:/profile/" + profileName + "/";
     }
-
+    
     @PostMapping("/profile/{profileName}/request")
     public String postFriendRequest(@PathVariable String profileName) {
         Profile to = profiles.getProfile(profileName);
